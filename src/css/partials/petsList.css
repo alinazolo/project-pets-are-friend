@@ -188,3 +188,37 @@
   border: 1px solid var(--color-neutral-darkest);
   background: var(--color-mariner-light);
 }
+
+.showmore-btn {
+  width: 335px;
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 768px) {
+  .pets-list-cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .pet-image {
+    max-height: 246px;
+  }
+
+  .petlist-pet-card {
+    width: calc((100% - 32px) / 2);
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .petlist-pet-card {
+    width: calc((100% - 64px) / 3);
+  }
+
+  .pet-image {
+    max-height: 309px;
+  }
+
+  .showmore-btn {
+    width: 192px;
+  }
+}
