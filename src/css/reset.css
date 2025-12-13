@@ -21,6 +21,7 @@ ul {
 a {
   color: currentColor;
   text-decoration: none;
+  cursor: pointer;
 }
 
 button {
@@ -32,7 +33,6 @@ img {
   max-width: 100%;
   height: auto;
 }
-
 
 button,
 input,
