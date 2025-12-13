@@ -1,11 +1,11 @@
 {
-  "name": "project-pets-is-friend",
+  "name": "project-pets-are-friend",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/project-pets-is-friend/",
+    "build": "vite build --base=/project-pets-are-friend/",
     "preview": "vite preview"
   },
   "devDependencies": {
