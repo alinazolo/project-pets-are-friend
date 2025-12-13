@@ -63,10 +63,15 @@ function renderCategorie(category) {
       </li>`;
 }
 
+function getRenderLimit() {
+  return window.innerWidth >= 1440 ? 9 : 8;
+}
+
 function renderPetsList(pets) {
   petsListCards.innerHTML = '';
 
-  const petsToRender = pets.slice(0, 8);
+  const limit = getRenderLimit();
+  const petsToRender = pets.slice(0, limit);
 
   if (!petsToRender.length) {
     petsListCards.innerHTML =
@@ -123,6 +128,10 @@ function createPetCard(pet) {
 
 document.addEventListener('DOMContentLoaded', () => {
   getPetsList(), getPetsCategorie();
+});
+
+window.addEventListener('resize', () => {
+  renderPetsList(ALLPETS);
 });
 
 categoriesList.addEventListener('click', e => {
