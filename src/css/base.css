@@ -1,6 +1,6 @@
 :root {
   /* font-family: Inter, Avenir, Helvetica, Arial, sans-serif; */
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  font-family: "IBM Plex Sans",sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 16px;
   line-height: 1.5;
@@ -11,22 +11,114 @@
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
 }
 
 body {
   display: flex;
   flex-direction: column;
-  min-width: 100vw;
-  min-height: 100vh;
+  min-width: 100%;
+  min-height: 100%;
   margin: 0;
 }
 
-main {
-  flex-grow: 1;
+
+
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #88765c;
+  border-radius: 8px;
+  padding: 12px 24px;
+  background-color: #88765C;
+  color: #fff;
 }
-main:has(.back-link) {
-  text-align: center;
+
+.isSpiritButton {
+  border: 1px solid #02060a;
+  background-color: transparent;
+  color: #02060a;
 }
+
+button:hover,
+button:focus {
+  border: 1px solid #02060a;
+  color: #02060a; 
+  background: #eee9e3;
+}
+
+.isSpiritButton:hover,
+.isSpiritButton:focus {
+  border: 1px solid #02060a;
+  background: #c3b49d;
+}
+
+button:active {
+  border: 1px solid #88765c;
+  box-shadow: inset 0 4px 6px -2px rgba(0, 0, 0, 0.03), inset 0 12px 16px -4px rgba(0, 0, 0, 0.08);
+  background: #eee9e3;
+}
+
+.isSpiritButton:active {
+  border: 1px solid #02060a;
+  box-shadow: inset 0 4px 6px -2px rgba(0, 0, 0, 0.03), inset 0 12px 16px -4px rgba(0, 0, 0, 0.08);
+  background: #c3b49d;
+}
+
+button:disabled {
+  border: 1px solid #88765c;
+  background: #88765c;
+  opacity: 0.3;
+}
+.isSpiritButton:disabled {
+  opacity: 0.3;
+}
+
+
+
+
+
+
+a {
+  color: #02060a;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+a:active {
+  color: #88765c;
+}
+
+a:disabled {
+  opacity: 0.3;
+}
+
+
+
+input, textarea {
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 12px;
+  padding: 8px 12px;
+  background: rgba(2, 6, 10, 0.05);
+  line-height: 1.5;
+  color: #02060a;
+}
+
+input::placeholder, textarea::placeholder {
+color: rgba(2, 6, 10, 0.6);
+}
+
+input:active, textarea:active{
+border: 1px solid #88765c;
+background: #eee9e3;
+}
+
+input.is-error, textarea.is-error {
+  background: rgba(2, 6, 10, 0.05);
+  border: 1px solid #ae0000;
+  color: #ae0000;
+}
+

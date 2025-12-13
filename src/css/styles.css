@@ -11,8 +11,14 @@
 @import url('./animations.css');
 
 /* Sections style */
-@import url('./header.css');
-@import url('./vite-promo.css');
-@import url('./badges.css');
-@import url('./back-link.css');
-@import url('./footer.css');
+@import url('./partials/header.css'); /*Styles for the Header section*/
+@import url('./partials/hero.css');/*Styles for the Hero section*/
+@import url('./partials/petsList.css');/*Styles for the Header section*/
+@import url('./partials/aboutUs.css'); /*Styles for the About Us section*/
+@import url('./partials/FAQ.css'); /*Styles for the FAQ section*/
+@import url('./partials/successStories.css'); /*Styles for the Success Stories section*/
+@import url('./partials/footer.css'); /*Styles for the Footer section*/
+
+/* Modals */
+@import url('./partials/animalDetailsModal.css'); /*Styles for the Animal Details Modal */
+@import url('./partials/orderModal.css'); /*Styles for the Order Modal */

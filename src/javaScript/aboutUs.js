@@ -1,0 +1,1 @@
+// scripts for the about us section

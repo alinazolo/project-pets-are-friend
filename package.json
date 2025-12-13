@@ -1,11 +1,11 @@
 {
-  "name": "vanilla-app-template",
+  "name": "project-pets-is-friend",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/vanilla-app-template/",
+    "build": "vite build --base=/project-pets-is-friend/",
     "preview": "vite preview"
   },
   "devDependencies": {
@@ -14,9 +14,14 @@
     "postcss-sort-media-queries": "^5.2.0",
     "vite": "^5.4.6"
   },
-  "author": "Alexander Repeta <alexander.repeta@gmail.com>",
+  "author": "team <ka1n.th1rd.player@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "accordion-js": "^3.4.1",
+    "axios": "^1.13.2",
+    "basiclightbox": "^5.0.4",
+    "raty-js": "^4.3.0",
+    "swiper": "^12.0.3",
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-html-inject": "^1.1.2"
   }
