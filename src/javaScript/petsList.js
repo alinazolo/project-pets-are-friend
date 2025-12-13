@@ -1,7 +1,24 @@
 import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+
 // FETCHES----
+
+async function getPetsCategorie() {
+  try {
+    const res = await axios.get('https://paw-hut.b.goit.study/api/categories');
+    console.log(res.data);
+
+    const categories = res.data;
+
+    renderCategories(categories);
+  } catch (err) {
+    iziToast.error({
+      title: 'Помилка',
+      message: err.response?.data?.message || 'Неможливо завантажити дані',
+    });
+  }
+}
 
 async function getPetsList() {
   try {
@@ -11,14 +28,11 @@ async function getPetsList() {
         limit: 8,
       },
     });
-    console.log(res.data);
 
     const pets = res.data.animals;
 
     renderPetsList(pets);
   } catch (err) {
-    console.log('Error', err);
-
     iziToast.error({
       title: 'Помилка',
       message: err.response?.data?.message || 'Неможливо завантажити дані',
@@ -27,11 +41,26 @@ async function getPetsList() {
 }
 
 // RENDERS----
+const categoriesList = document.querySelector('.js-pet-list-categories');
 const petsListCards = document.querySelector('.js-pets-list-cards');
+
+function renderCategories(categories) {
+  const markup = categories.map(renderCategorie).join('');
+  categoriesList.innerHTML = markup;
+}
+
+function renderCategorie(category) {
+  return `<li>
+        <button class="category-btn" type="button" data-category="${category._id} data-name="${category.name}">
+          ${category.name}
+        </button>
+      </li>`;
+}
 
 function renderPetsList(pets) {
   if (!pets.length) {
-    petsListCards.innerHTML = '<p>Нажаль наразі не має доступних тварин</p>';
+    petsListCards.innerHTML =
+      '<p>Нажаль наразі не має доступних хатніх тваринок</p>';
     return;
   }
 
@@ -74,4 +103,6 @@ function createPetCard(pet) {
 }
 
 // FUNCTIONAL----
-document.addEventListener('DOMContentLoaded', getPetsList);
+document.addEventListener('DOMContentLoaded', () => {
+  getPetsList(), getPetsCategorie();
+});
