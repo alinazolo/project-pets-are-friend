@@ -184,8 +184,7 @@
     inset 0 12px 16px -4px rgba(0, 0, 0, 0.08);
 }
 
-.pet-more-btn:hover,
-.pet-more-btn:focus {
+.pet-more-btn:hover {
   border: 1px solid var(--color-neutral-darkest);
   background: var(--color-mariner-light);
 }
