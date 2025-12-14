@@ -7,6 +7,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 const categoriesList = document.querySelector('.js-pet-list-categories');
 const petsListCards = document.querySelector('.js-pets-list-cards');
 const showMoreBtn = document.querySelector('.js-showmore-btn');
+const loaderElem = document.querySelector('.js-loader');
 
 let ALLPETS = [];
 let displayedCount = 0;
@@ -81,7 +82,7 @@ function renderPetsList(pets) {
   if (!petsToRender.length) {
     petsListCards.innerHTML =
       '<p>Нажаль наразі не має доступних хатніх тваринок 😞 </p>';
-    showMoreBtn.style.display = 'none';
+    hideShowBtn();
     return;
   }
 
@@ -89,7 +90,11 @@ function renderPetsList(pets) {
   petsListCards.insertAdjacentHTML('afterbegin', markup);
 
   displayedCount = petsToRender.length;
-  dispShowBtn(displayedCount < pets.length);
+  if (displayedCount >= pets.length) {
+    hideShowBtn();
+  } else {
+    checkShowBtn();
+  }
 }
 
 function createPetCard(pet) {
@@ -138,7 +143,7 @@ function renderMorePets(petArr) {
   const nextPart = petArr.slice(displayedCount, displayedCount + limit);
 
   if (nextPart.length === 0) {
-    showMoreBtn.style.display = 'none';
+    hideShowBtn();
     return;
   }
 
@@ -146,34 +151,40 @@ function renderMorePets(petArr) {
   petsListCards.insertAdjacentHTML('beforeend', markup);
 
   displayedCount += nextPart.length;
-  dispShowBtn(displayedCount < petArr.length);
+  checkShowBtn();
 }
 
 // EVENTS----
 
-document.addEventListener('DOMContentLoaded', () => {
-  getPetsList();
-  getPetsCategorie();
+document.addEventListener('DOMContentLoaded', async () => {
+  await Promise.all([getPetsList(), getPetsCategorie()]);
+  hideLoader();
 });
 
-categoriesList.addEventListener('click', e => {
+categoriesList.addEventListener('click', async e => {
   e.preventDefault();
 
-  const button = e.target.closest('.category-btn');
+  const button = e.target.closest('button.category-btn');
   if (!button || !categoriesList.contains(button)) return;
+
+  showLoader();
+  petsListCards.innerHTML = '';
+  await new Promise(resolve => setTimeout(resolve, 300));
 
   const selectedCategoryName = button.dataset.name;
   currentPets = filterPetsByCategory(selectedCategoryName);
+
   renderPetsList(currentPets);
 
   categoriesList
     .querySelectorAll('.category-btn')
     .forEach(btn => btn.classList.remove('active'));
   button.classList.add('active');
+  hideLoader();
 });
 
 window.addEventListener('resize', () => {
-  renderPetsList(currentPets);
+  renderPetsList(currentPets.slice(0, displayedCount || getRenderLimit()));
 });
 
 showMoreBtn.addEventListener('click', () => {
@@ -181,14 +192,31 @@ showMoreBtn.addEventListener('click', () => {
 });
 
 // FUNCTIONAL----
-
-function dispShowBtn(displayed) {
-  showMoreBtn.classList.toggle('hidden', !displayed);
-}
-
 function filterPetsByCategory(categoryName) {
   if (categoryName === 'all') return ALLPETS;
   return ALLPETS.filter(pet =>
     pet.categories?.some(pet => pet && pet.name === categoryName)
   );
+}
+
+function hideLoader() {
+  loaderElem.classList.add('hidden');
+  checkShowBtn();
+}
+
+function showLoader() {
+  loaderElem.classList.remove('hidden');
+  hideShowBtn();
+}
+
+function checkShowBtn() {
+  if (displayedCount < currentPets.length) {
+    showMoreBtn.classList.remove('hidden');
+  } else {
+    showMoreBtn.classList.add('hidden');
+  }
+}
+
+function hideShowBtn() {
+  showMoreBtn.classList.add('hidden');
 }
