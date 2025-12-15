@@ -3,28 +3,36 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 64px;
 }
 
-.header-logo-nav-wrap {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-}
 
+.header-logo {
+    padding: 6px 0;
+}
 .nav-list {
     display: flex;
     gap: 32px;
 }
-
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
 .nav-item {
     font-weight: 400;
     color: #02060a;
     line-height: 1.5;
     font-size: 16px;
+    
 }
+
+
 .nav-header-link {
     padding: 18px 0;
+    scroll-behavior: smooth
+}
+.modal-nav-link {
+    scroll-behavior: smooth;
 }
 .cta-btn-header, .cta-btn-modal {
     border-radius: 8px;
@@ -32,11 +40,12 @@
     background: #88765c;
     color: #fff;
     font-size: 16px;
+    scroll-behavior: smooth;
     transition: background-color 0.3s;
 }
 
 @media screen and (max-width: 1440px) {
-    .header-nav, .cta-btn-header {
+    .nav-list, .cta-btn-header {
         display: none;
     }
 }
