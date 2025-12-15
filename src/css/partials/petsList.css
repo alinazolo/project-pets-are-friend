@@ -11,10 +11,6 @@
   --opacity-neutral-darkest-5: rgba(2, 6, 10, 0.05);
 }
 
-.container {
-  padding: 64px 20px;
-}
-
 .hidden {
   display: none;
 }
@@ -40,6 +36,8 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
 
 .pets-list-titles {
@@ -205,10 +203,6 @@
 /* ADAPTATION---- */
 
 @media only screen and (min-width: 768px) {
-  .container {
-    padding: 64px 32px;
-  }
-
   .pets-list-cards {
     flex-direction: row;
     flex-wrap: wrap;
@@ -224,8 +218,9 @@
 }
 
 @media only screen and (min-width: 1440px) {
-  .container {
-    padding: 80px 64px;
+  .pets-list-section {
+    padding-top: 80px;
+    padding-bottom: 80px;
   }
 
   .petlist-main-tag {
