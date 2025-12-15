@@ -22,7 +22,7 @@
 .petlist-main-tag {
   font-family: var(--second-family);
   font-weight: 700;
-  font-size: 48px;
+  font-size: 36px;
   line-height: 1.2;
   letter-spacing: -0.01em;
   text-align: center;
@@ -30,7 +30,7 @@
 
 .petlist-card-tag {
   font-weight: 700;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 1.4;
   letter-spacing: -0.01em;
 }
@@ -78,6 +78,7 @@
 /* TEXT---- */
 .petlist-titles-text {
   text-align: center;
+  font-size: 16px;
 }
 
 /* CARD---- */
@@ -118,7 +119,7 @@
 
 .petlist-pet-category {
   font-weight: 600;
-  font-size: 12px;
+  font-size: 10px;
   border: 1px solid var(--opacity-transparent);
   background: var(--opacity-neutral-darkest-5);
   border-radius: 100px;
@@ -177,6 +178,7 @@
 }
 
 .pet-more-btn {
+  font-size: 14px;
   color: var(--color-neutral-darkest);
   border: 1px solid var(--color-neutral-darkest);
   background-color: transparent;
@@ -224,6 +226,42 @@
 @media only screen and (min-width: 1440px) {
   .container {
     padding: 80px 64px;
+  }
+
+  .petlist-main-tag {
+    font-size: 48px;
+  }
+
+  .petlist-titles-text {
+    font-size: 18px;
+  }
+
+  .category-btn {
+    font-size: 16px;
+  }
+
+  .petlist-pet-breed {
+    font-size: 12px;
+  }
+
+  .petlist-card-tag {
+    font-size: 24px;
+  }
+
+  .petlist-pet-category {
+    font-size: 12px;
+  }
+
+  .petlist-pet-meta-item {
+    font-size: 12px;
+  }
+
+  .petlist-pet-description {
+    font-size: 14px;
+  }
+
+  .pet-more-btn {
+    font-size: 16px;
   }
 
   .petlist-pet-card {
