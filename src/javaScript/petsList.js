@@ -112,15 +112,15 @@ function createPetCard(pet) {
             
             <h3 class="petlist-card-tag">${pet.name}</h3>
 
-            <div class="petlist-pet-categories">
+            <ul class="petlist-pet-categories">
     ${
       pet.categories && pet.categories.length
         ? pet.categories
-            .map(cat => `<span class="petlist-pet-category">${cat.name}</span>`)
+            .map(cat => `<li class="petlist-pet-category">${cat.name}</li>`)
             .join('')
-        : '<span class="petlist-pet-category">No category</span>'
+        : '<li class="petlist-pet-category">No category</li>'
     }
-  </div>
+  </ul>
             </div>
     
             <ul class="petlist-pet-meta">
@@ -189,6 +189,16 @@ window.addEventListener('resize', () => {
 
 showMoreBtn.addEventListener('click', () => {
   renderMorePets(currentPets);
+});
+
+petsListCards.addEventListener('click', e => {
+  const btn = e.target.closest('.js-pet-more-btn');
+  if (!btn) return;
+
+  const card = btn.closest('.petlist-pet-card');
+  const petId = card.dataset.id;
+
+  console.log('Дізнатися більше', petId);
 });
 
 // FUNCTIONAL----
