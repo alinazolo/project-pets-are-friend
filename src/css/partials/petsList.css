@@ -83,7 +83,7 @@
 
 /* CARD---- */
 .pet-image {
-  max-height: 245px;
+  height: 245px;
   object-fit: fill;
   border-radius: 8px;
 }
@@ -215,7 +215,7 @@
   }
 
   .pet-image {
-    max-height: 246px;
+    height: 246px;
   }
 
   .petlist-pet-card {
@@ -269,7 +269,7 @@
   }
 
   .pet-image {
-    max-height: 309px;
+    height: 309px;
   }
 
   .showmore-btn {
