@@ -6,12 +6,22 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const categoriesList = document.querySelector('.js-pet-list-categories');
 const petsListCards = document.querySelector('.js-pets-list-cards');
-const showMoreBtn = document.querySelector('.js-showmore-btn');
+// const showMoreBtn = document.querySelector('.js-showmore-btn');
 const loaderElem = document.querySelector('.js-loader');
 
+    //СЕЛЕКТОИ ПАГІНАЦІЇ
+const paginationContainer = document.querySelector('.js-pagination');
+const paginationNumbers = document.querySelector('.js-pagination-numbers');
+const prevBtn = document.querySelector('.js-prev-btn');
+const nextBtn = document.querySelector('.js-next-btn');
+
 let ALLPETS = [];
-let displayedCount = 0;
+// let displayedCount = 0;
 let currentPets = [];
+    //ПАГІНАЦІЯ
+let currentPage = 1;
+let totalPages = 1;
+
 
 // FETCHES----
 
@@ -74,27 +84,22 @@ function getRenderLimit() {
 
 function renderPetsList(pets) {
   petsListCards.innerHTML = '';
-  displayedCount = 0;
+  currentPage = 1;
 
-  const limit = getRenderLimit();
-  const petsToRender = pets.slice(0, limit);
-
-  if (!petsToRender.length) {
-    petsListCards.innerHTML =
-      '<p>Нажаль наразі не має доступних хатніх тваринок 😞 </p>';
-    hideShowBtn();
+  if (!pets.length) {
+    petsListCards.innerHTML = 
+        '<p>Нажаль наразі не має доступних хатніх тваринок 😞 </p>';
     return;
   }
 
-  const markup = petsToRender.map(createPetCard).join('');
-  petsListCards.insertAdjacentHTML('afterbegin', markup);
+  totalPages = Math.ceil(pets.length / getRenderLimit());
 
-  displayedCount = petsToRender.length;
-  if (displayedCount >= pets.length) {
-    hideShowBtn();
-  } else {
-    checkShowBtn();
-  }
+  const limit = getRenderLimit();
+  const petsToShow = pets.slice(0, limit);
+  const markup = petsToShow.map(createPetCard).join('');
+  petsListCards.innerHTML = markup;
+
+  updatePaginationButtons();
 }
 
 function createPetCard(pet) {
@@ -138,21 +143,46 @@ function createPetCard(pet) {
     </li>`;
 }
 
-function renderMorePets(petArr) {
-  const limit = getRenderLimit();
-  const nextPart = petArr.slice(displayedCount, displayedCount + limit);
-
-  if (nextPart.length === 0) {
-    hideShowBtn();
-    return;
+function updatePaginationButtons() {
+  let numbersHTML = '';
+  for (let i = 1; i <= totalPages; i++) {
+    const activeClass = i === currentPage ? 'active' : '';
+    numbersHTML += `<button class="pagination-number ${activeClass}" data-page="${i}">${i}</button>`;
   }
+  paginationNumbers.innerHTML = numbersHTML;
 
-  const markup = nextPart.map(createPetCard).join('');
-  petsListCards.insertAdjacentHTML('beforeend', markup);
-
-  displayedCount += nextPart.length;
-  checkShowBtn();
+  prevBtn.disabled = currentPage === 1;
+  nextBtn.disabled = currentPage === totalPages;
 }
+
+function goToPage(pageNumber) {
+  if (pageNumber < 1 || pageNumber > totalPages) return;
+
+  currentPage = pageNumber;
+  const limit = getRenderLimit();
+  const startIndex = (currentPage - 1) * limit;
+  const petsToShow = currentPets.slice(startIndex, startIndex + limit);
+
+  const markup = petsToShow.map(createPetCard).join('');
+  petsListCards.innerHTML = markup;
+  updatePaginationButtons();
+}
+
+//function renderMorePets(petArr) {
+//  const limit = getRenderLimit();
+//  const nextPart = petArr.slice(displayedCount, displayedCount + limit);
+
+//  if (nextPart.length === 0) {
+//  hideShowBtn();
+//    return;
+//  }
+
+//  const markup = nextPart.map(createPetCard).join('');
+//  petsListCards.insertAdjacentHTML('beforeend', markup);
+
+//  displayedCount += nextPart.length;
+//  checkShowBtn();
+//}
 
 // EVENTS----
 
@@ -184,12 +214,20 @@ categoriesList.addEventListener('click', async e => {
 });
 
 window.addEventListener('resize', () => {
-  renderPetsList(currentPets.slice(0, displayedCount || getRenderLimit()));
+  renderPetsList(currentPets);
 });
 
-showMoreBtn.addEventListener('click', () => {
-  renderMorePets(currentPets);
+prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+paginationNumbers.addEventListener('click', (e) => {
+  if (e.target.classList.contains('pagination-number')) {
+    goToPage(parseInt(e.target.dataset.page));
+  }
 });
+
+//showMoreBtn.addEventListener('click', () => {
+//  renderMorePets(currentPets);
+//});
 
 petsListCards.addEventListener('click', e => {
   const btn = e.target.closest('.js-pet-more-btn');
@@ -211,22 +249,22 @@ function filterPetsByCategory(categoryName) {
 
 function hideLoader() {
   loaderElem.classList.add('hidden');
-  checkShowBtn();
+//  checkShowBtn();
 }
 
 function showLoader() {
   loaderElem.classList.remove('hidden');
-  hideShowBtn();
+//  hideShowBtn();
 }
 
-function checkShowBtn() {
-  if (displayedCount < currentPets.length) {
-    showMoreBtn.classList.remove('hidden');
-  } else {
-    showMoreBtn.classList.add('hidden');
-  }
-}
+//function checkShowBtn() {
+//  if (displayedCount < currentPets.length) {
+//    showMoreBtn.classList.remove('hidden');
+//  } else {
+//    showMoreBtn.classList.add('hidden');
+//  }
+//}
 
-function hideShowBtn() {
-  showMoreBtn.classList.add('hidden');
-}
+//function hideShowBtn() {
+//  showMoreBtn.classList.add('hidden');
+//}
