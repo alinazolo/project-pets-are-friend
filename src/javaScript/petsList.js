@@ -183,10 +183,6 @@ categoriesList.addEventListener('click', async e => {
   hideLoader();
 });
 
-window.addEventListener('resize', () => {
-  renderPetsList(currentPets.slice(0, displayedCount || getRenderLimit()));
-});
-
 showMoreBtn.addEventListener('click', () => {
   renderMorePets(currentPets);
 });
