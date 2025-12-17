@@ -13,7 +13,7 @@ const orderForm = {
                 <label for="phone">Телефон*</label>
                 <input type="text" name="phone" id="phone" placeholder="+38 (095) 555 99 22">
                 <label for="comment">Коментар</label>
-                <textarea type="textarea" name="comment" id="comment" placeholder="Напишіть ваш коментар"></textarea>
+                <textarea type="textarea"  name="comment" id="comment" placeholder="Напишіть ваш коментар"></textarea>
                <div class='order-controllers-container'> <button type="submit" class="dark">Надіслати</button></div>
             </form>`;
   },

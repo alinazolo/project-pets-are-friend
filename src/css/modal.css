@@ -18,7 +18,9 @@ body.modal-open {
   min-height: 100%;
   padding: 64px 20px;
 }
-
+.order-form textarea{
+  resize: none !important;
+}
 .modal-backdrop.is-open {
   opacity: 1;
   pointer-events: auto;
