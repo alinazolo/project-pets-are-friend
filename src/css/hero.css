@@ -5,7 +5,7 @@
             rgba(0, 0, 0, 0.45) 0%,
             rgba(0, 0, 0, 0.25) 50%,
             rgba(0, 0, 0, 0) 100%),
-        url(".../images/Rectangle6.jpg");
+        url("./images/Rectangle6.jpg");
     background-size: cover;
     background-position: 90% center;
     height: 544px;
@@ -19,7 +19,7 @@
                 rgba(0, 0, 0, 0.45) 0%,
                 rgba(0, 0, 0, 0.25) 50%,
                 rgba(0, 0, 0, 0) 100%),
-            url(".../images/Rectangle6@2x.jpg");
+            url("./images/Rectangle6@2x.jpg");
     }
 }
 
