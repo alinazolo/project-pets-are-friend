@@ -13,7 +13,7 @@
   --mariner: #c3b49d;
   --mariner-dark: #88765c;
   --mariner-darker: #443b2e;
-  --mariner-da4kest: #332c22;
+  --mariner-darkest: #332c22;
   --white: #ffffff;
   --neutral-lightest: #f2f2f2;
   --neutral-lighter: #d9d9da;
@@ -22,20 +22,32 @@
   --neutral-dark: #4d5053;
   --neutral-darker: #1b1e22;
   --neutral-darkest: #02060a;
+  --neutral-darkest-5: rgba(2, 6, 10, 0.05);
   --red: #ae0000;
+  --modal-bgc: rgba(0, 0, 0, 0.25);
   /*Text sizes*/
-  --heading-1: 56px;
-  --heading-2: 48px;
-  --heading-3: 40px;
-  --heading-5: 24px;
-  --text-medium: 18px;
-  --text-regular: 16px;
-  --text-small: 14px;
-  --text-tiny: 12px;
+  --heading-1-mobile: 40px;
+  --heading-1-desktop: 56px;
+  --heading-2-mobile: 36px;
+  --heading-2-desktop: 48px;
+  --heading-3-mobile: 32px;
+  --heading-3-desktop: 40px;
+  --heading-5-mobile: 20px;
+  --heading-5-desktop: 24px;
+  --text-large-mobile: 18px;
+  --text-large-desktop: 20px;
+  --text-medium-mobile: 16px;
+  --text-medium-desktop: 18px;
+  --text-regular-mobile: 14px;
+  --text-regular-desktop: 16px;
+  --text-small-mobile: 12px;
+  --text-small-desktop: 14px;
+  --text-tiny-mobile: 10px;
+  --text-tiny-desktop: 12px;
 
   color: var(--neutral-darkest);
   background-color: var(--mariner-lightest);
-  font-size: var(--text-medium);
+  font-size: var(--text-medium-mobile);
 }
 
 body {
@@ -46,19 +58,46 @@ body {
   margin: 0;
 }
 
+h2 {
+  font-size: var(--heading-2-mobile);
+  font-weight: 700;
+  font-style: Bold;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+h3 {
+  font-size: var(--heading-3-mobile);
+  font-weight: 700;
+  font-style: Bold;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+}
+
+h4 {
+  font-size: var(--text-regular-mobile);
+  font-weight: 600;
+  font-style: SemiBold;
+  line-height: 150%;
+}
+
 button {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
   padding: 12px 24px;
-  font-size: var(--text-regular);
+  font-size: var(--text-regular-mobile);
+  transition: 0.2s ease;
+  height: 45px;
 }
 
 button.dark {
   border: 1px solid var(--mariner-dark);
   background-color: var(--mariner-dark);
   color: var(--white);
+  outline: none;
 }
 
 button.light {
@@ -70,6 +109,7 @@ button.dark:hover,
 button.dark:focus {
   background-color: var(--mariner-lighter);
   color: var(--neutral-darkest);
+  outline: none;
 }
 
 button.light:hover,
