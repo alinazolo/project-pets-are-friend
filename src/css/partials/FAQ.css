@@ -1,7 +1,4 @@
 .faq {
-  max-width: 864px;
-  padding-top: 64px;
-  padding-bottom: 64px;
 }
 
 @media only screen and (min-width: 1440px) {
@@ -9,6 +6,11 @@
     padding-top: 80px;
     padding-bottom: 80px;
   }
+}
+.faq-container {
+  max-width: 864px;
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
 
 .faq-accordion {
