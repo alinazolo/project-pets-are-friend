@@ -28,7 +28,6 @@
 }
 
 .faq-accordion-item {
-  padding: 8px;
   list-style: none;
   width: 100%;
   border-radius: 8px;
@@ -38,9 +37,9 @@
 .faq-accordion-header {
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
   display: flex;
   cursor: pointer;
+  padding: 20px 24px;
 }
 
 .faq-accordion-title {
@@ -82,10 +81,18 @@
 }
 
 .faq-accordion-content--visible {
-  /* display: block; */
   grid-template-rows: 1fr;
 }
 .faq-accordion-content > div {
   overflow: hidden;
-  padding: 0 16px;
+  padding: 0 24px;
+}
+
+.faq-accordion-content > div > *:last-child {
+  margin-bottom: 24px;
+}
+
+.faq-accordion-list {
+  list-style-type: disc;
+  padding-left: 20px;
 }
