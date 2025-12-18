@@ -43,7 +43,7 @@ function createFeedbacks(feedbacks) {
       .join('');
 
     return `
-      <div class="swiper-slide success-stories-list">
+      <li class="swiper-slide success-stories-list">
         <div class="${ratingClass} star-icon color-default">
           <div class="star-container">
             ${stars}
@@ -51,7 +51,7 @@ function createFeedbacks(feedbacks) {
         </div>
         <p class="success-stories-list-review">${description}</p>
         <p class="success-stories-list-author">${author}</p>
-      </div>
+      </li>
     `;
   }).join('');
 
@@ -91,26 +91,6 @@ function initSwiper() {
   });
 }
 
-//rater-js
-// function initRatings() {
-//   const ratings = document.querySelectorAll('.rating');
-
-//   ratings.forEach(el => {
-//     const score = parseFloat(el.dataset.rate);
-
-//     rater({
-//       element: el,
-//       max: 5,
-//       readOnly: true,
-//       rating: score,
-//       starSize: 20,
-//       step: 0.5,
-//       showToolTip: false,
-//       rateCallback: function() {}
-//     });
-//   });
-// }
-
 
 async function handleReviews() {
   try {
@@ -135,67 +115,3 @@ async function handleReviews() {
 }
 
 handleReviews();
-
-//Init Raty version 2 
-// function initRatings() {
-//   const ratings = document.querySelectorAll('[data-raty]');
-
-//    ratings.forEach(el => {
-//     if (el.dataset.ratyInit) return;
-//     el.dataset.ratyInit = 'true';
-
-//     const rate = Number(el.dataset.rate);
-
-//     new Raty(el, {
-//       score: rate,
-//       number: 5,
-//       half: true,
-//       readOnly: true,
-//       starOff: '<span class="star-placeholder" data-type="off"></span>',
-//       starOn: '<span class="star-placeholder" data-type="on"></span>',
-//       starHalf: '<span class="star-placeholder" data-type="half"></span>'
-//     });
-
-//     patchStars(el);
-//   });
-//   console.log(spriteUrl);
-// console.log(`${spriteUrl}#icon-star-half`);
-// }
-
-//Init Raty old
-// function initRatings() {
-//   const ratings = document.querySelectorAll('[data-raty]');
-// //   console.log('ratings found:', ratings.length);
-  
-//   ratings.forEach(el => {
-//     if (el.dataset.ratyInit) return;
-//     el.dataset.ratyInit = 'true';
-
-//     new Raty(el, {
-//       score: Number(el.dataset.rate),
-//       number: 5,
-//       half: true,
-//       readOnly: true,
-//       starOn: STAR_ON,
-//       starOff: STAR_OFF,
-//       starHalf: STAR_HALF
-//     });
-//   });
-// }
-
-//raty svg
-// const STAR_ON = `
-// <svg class="star star-on" width="20" height="20">
-//     <use href="${spriteUrl}#icon-star-filled"></use>
-// </svg>
-// `;
-// const STAR_OFF = `
-// <svg class="star star-off" width="20" height="20">
-//   <use href="${spriteUrl}#icon-star-outline"></use>
-// </svg>
-// `;
-// const STAR_HALF = `
-// <svg class="star star-half" width="20" height="20">
-//   <use href="${spriteUrl}#icon-star-half"></use>
-// </svg>
-// `;
