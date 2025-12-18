@@ -142,6 +142,11 @@ right: 0px;
   gap: 8px;
 }
 
+.success-stories-carousel-arrow {
+  width: 24px !important;
+  height: 24px !important;
+}
+
 /* Pagination bullet */
 .success-stories-swiper-pagination {
   display: flex;
