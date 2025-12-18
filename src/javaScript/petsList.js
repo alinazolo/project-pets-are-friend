@@ -4,99 +4,102 @@ import 'izitoast/dist/css/iziToast.min.css';
 import baseModal from './modal';
 import animalDetail from './animalDetailsModal';
 
-// VARIABLE----
+// ================= DOM =================
 
 const categoriesList = document.querySelector('.js-pet-list-categories');
 const petsListCards = document.querySelector('.js-pets-list-cards');
 const showMoreBtn = document.querySelector('.js-showmore-btn');
 const loaderElem = document.querySelector('.js-loader');
 
-let ALLPETS = [];
-let displayedCount = 0;
+// ================= STATE =================
+
 let currentPets = [];
+let currentCategory = 'all';
+let currentPage = 1;
+let visibleCount = 0;
+let totalItems = 0;
 
-// FETCHES----
+const API_LIMIT = getRenderLimit();
 
-async function getPetsCategorie() {
+// ================= API =================
+
+async function getPetsCategories() {
   try {
     const res = await axios.get('https://paw-hut.b.goit.study/api/categories');
-
-    const categories = res.data;
-
-    renderCategories(categories);
+    renderCategories(res.data);
   } catch (err) {
     iziToast.error({
       title: 'Помилка',
-      message: err.response?.data?.message || 'Неможливо завантажити дані',
+      message: 'Неможливо завантажити категорії',
     });
   }
 }
 
-async function getPetsList() {
+async function getPetsList({ category = 'all', page = 1 } = {}) {
   try {
+    const params = {
+      page,
+      limit: API_LIMIT,
+    };
+
+    if (category !== 'all') {
+      params.categoryId = category;
+    }
+
     const res = await axios.get('https://paw-hut.b.goit.study/api/animals', {
-      params: {
-        page: 1,
-        limit: 30,
-      },
+      params,
     });
 
-    ALLPETS = res.data.animals;
-    currentPets = ALLPETS;
-
-    renderPetsList(ALLPETS);
+    return res.data;
   } catch (err) {
     iziToast.error({
       title: 'Помилка',
-      message: err.response?.data?.message || 'Неможливо завантажити дані',
+      message: 'Неможливо завантажити тварин',
     });
+    return { animals: [], totalItems: 0 };
   }
 }
 
-// RENDERS----
+// ================= RENDER =================
+
 function renderCategories(categories) {
-  const allButton = `<li class="pets-list-categories-item">
-      <button class="category-btn active" type="button" data-name="all">Всі</button>
+  const allBtn = `
+    <li>
+      <button class="category-btn active" data-category-id="all">
+        Всі
+      </button>
     </li>`;
-  const markup = categories.map(renderCategorie).join('');
-  categoriesList.innerHTML = allButton + markup;
+
+  categoriesList.innerHTML =
+    allBtn + categories.map(renderCategoryItem).join('');
 }
 
-function renderCategorie(category) {
-  return `<li>
-        <button class="category-btn" type="button" data-category="${category._id}" data-name="${category.name}">
-          ${category.name}
-        </button>
-      </li>`;
+function renderCategoryItem(category) {
+  return `
+    <li>
+      <button class="category-btn" data-category-id="${category._id}">
+        ${category.name}
+      </button>
+    </li>`;
 }
 
-function getRenderLimit() {
-  return window.innerWidth >= 1440 ? 9 : 8;
-}
+function renderNextBatch() {
+  const uiLimit = getRenderLimit();
 
-function renderPetsList(pets) {
-  petsListCards.innerHTML = '';
-  displayedCount = 0;
+  const nextPets = currentPets.slice(visibleCount, visibleCount + uiLimit);
 
-  const limit = getRenderLimit();
-  const petsToRender = pets.slice(0, limit);
-
-  if (!petsToRender.length) {
-    petsListCards.innerHTML =
-      '<p>Нажаль наразі не має доступних хатніх тваринок 😞 </p>';
-    hideShowBtn();
+  if (!nextPets.length) {
+    checkShowBtn();
     return;
   }
 
-  const markup = petsToRender.map(createPetCard).join('');
-  petsListCards.insertAdjacentHTML('afterbegin', markup);
+  petsListCards.insertAdjacentHTML(
+    'beforeend',
+    nextPets.map(createPetCard).join('')
+  );
 
-  displayedCount = petsToRender.length;
-  if (displayedCount >= pets.length) {
-    hideShowBtn();
-  } else {
-    checkShowBtn();
-  }
+  visibleCount += nextPets.length;
+  checkShowBtn();
 }
 
 function createPetCard(pet) {
@@ -116,7 +119,7 @@ function createPetCard(pet) {
 
             <ul class="petlist-pet-categories">
     ${
-      pet.categories && pet.categories.length
+      pet.categories?.length
         ? pet.categories
             .map(cat => `<li class="petlist-pet-category">${cat.name}</li>`)
             .join('')
@@ -140,78 +143,102 @@ function createPetCard(pet) {
     </li>`;
 }
 
-function renderMorePets(petArr) {
-  const limit = getRenderLimit();
-  const nextPart = petArr.slice(displayedCount, displayedCount + limit);
+// ================= LOAD LOGIC =================
 
-  if (nextPart.length === 0) {
+async function loadInitialPets() {
+  showLoader();
+
+  currentPage = 1;
+  visibleCount = 0;
+  petsListCards.innerHTML = '';
+
+  const data = await getPetsList({
+    category: currentCategory,
+    page: currentPage,
+  });
+
+  currentPets = data.animals;
+  totalItems = data.totalItems;
+
+  renderNextBatch();
+  hideLoader();
+}
+
+async function loadMorePets() {
+  const uiLimit = getRenderLimit();
+
+  if (visibleCount < currentPets.length) {
+    renderNextBatch();
+    return;
+  }
+
+  if (visibleCount >= totalItems) {
     hideShowBtn();
     return;
   }
 
-  const markup = nextPart.map(createPetCard).join('');
-  petsListCards.insertAdjacentHTML('beforeend', markup);
+  showLoader();
+  currentPage += 1;
 
-  displayedCount += nextPart.length;
-  checkShowBtn();
+  const data = await getPetsList({
+    category: currentCategory,
+    page: currentPage,
+  });
+
+  currentPets.push(...data.animals);
+  renderNextBatch();
+
+  hideLoader();
 }
 
-// EVENTS----
+// ================= EVENTS =================
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await Promise.all([getPetsList(), getPetsCategorie()]);
-  hideLoader();
+  await loadInitialPets();
+  await getPetsCategories();
 });
 
 categoriesList.addEventListener('click', async e => {
-  e.preventDefault();
+  const btn = e.target.closest('.category-btn');
+  if (!btn) return;
 
-  const button = e.target.closest('button.category-btn');
-  if (!button || !categoriesList.contains(button)) return;
+  const categoryId = btn.dataset.categoryId;
+  if (categoryId === currentCategory) return;
 
-  showLoader();
-  petsListCards.innerHTML = '';
-  await new Promise(resolve => setTimeout(resolve, 300));
-
-  const selectedCategoryName = button.dataset.name;
-  currentPets = filterPetsByCategory(selectedCategoryName);
-
-  renderPetsList(currentPets);
+  currentCategory = categoryId;
 
   categoriesList
     .querySelectorAll('.category-btn')
-    .forEach(btn => btn.classList.remove('active'));
-  button.classList.add('active');
-  hideLoader();
+    .forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  await loadInitialPets();
 });
 
-showMoreBtn.addEventListener('click', () => {
-  renderMorePets(currentPets);
-});
+showMoreBtn.addEventListener('click', loadMorePets);
 
 petsListCards.addEventListener('click', e => {
   const btn = e.target.closest('.js-pet-more-btn');
   if (!btn) return;
 
   const card = btn.closest('.petlist-pet-card');
-  const petId = card.dataset.id;
+  const pet = currentPets.find(p => p._id === card.dataset.id);
 
-  animalDetail.animalId = petId;
-  animalDetail.data = getPetById(petId);
+  if (!pet) return;
+
+  animalDetail.animalId = pet._id;
+  animalDetail.data = pet;
   baseModal.openModal(animalDetail);
 });
 
-// FUNCTIONAL----
-function filterPetsByCategory(categoryName) {
-  if (categoryName === 'all') return ALLPETS;
-  return ALLPETS.filter(pet =>
-    pet.categories?.some(pet => pet && pet.name === categoryName)
-  );
+// ================= UTILS =================
+
+function getRenderLimit() {
+  return window.innerWidth >= 1440 ? 9 : 8;
 }
 
-function hideLoader() {
-  loaderElem.classList.add('hidden');
-  checkShowBtn();
+function checkShowBtn() {
+  showMoreBtn.classList.toggle('hidden', visibleCount >= totalItems);
 }
 
 function showLoader() {
@@ -219,20 +246,11 @@ function showLoader() {
   hideShowBtn();
 }
 
-function checkShowBtn() {
-  if (displayedCount < currentPets.length) {
-    showMoreBtn.classList.remove('hidden');
-  } else {
-    showMoreBtn.classList.add('hidden');
-  }
+function hideLoader() {
+  loaderElem.classList.add('hidden');
+  checkShowBtn();
 }
 
 function hideShowBtn() {
   showMoreBtn.classList.add('hidden');
-}
-
-function getPetById(id) {
-  for (const pet of currentPets) {
-    if (pet['_id'] === id) return pet;
-  }
 }
