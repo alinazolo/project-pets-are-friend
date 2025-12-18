@@ -1,77 +1,14 @@
 /* styles for the success stories section */
   .success-stories-section {
-  padding: 20px 64px;
+  padding: 64px 20px;
 }
 
 /* position button */
 .swiper.success-stories-swiper {
   position: relative;
 }
-.success-stories-controls {
-  position: absolute;
-  bottom: 24px;
-left: 0px;
-right: 0px;
 
-  display: flex;
-  align-items: center;
-    justify-content: space-between;
-  pointer-events: none;
-}
-
-.success-stories-controls > * {
-  pointer-events: auto;
-}
-
-.success-stories-controls .swiper-pagination {
-  position: static !important;
-  transform: none !important;
-}
-
-.success-stories-controls .swiper-button-prev,
-.success-stories-controls .swiper-button-next {
- position: static !important;
-  inset: auto !important;
-  transform: none !important;
-  margin: 0;
-}
-
-.success-stories-arrows {
-  display: flex;
-  gap: 8px;
-}
-
-.success-stories-swiper-pagination {
- max-width: 200px;
-}
-/* Pagination bullet */
-.success-stories-swiper-pagination {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.success-stories-swiper-pagination .swiper-pagination-bullet {
-  width: 6px;
-  height: 6px;
-  background-color: #cfcfcf;
-  border-radius: 50%;
-  opacity: 1; /* важно */
-  transition: all 0.3s ease;
-}
-.success-stories-swiper-pagination
-.swiper-pagination-bullet-active {
-  width: 12px;
-  height: 12px;
-  background-color: var(--neutral-darkest);
-}
-
-.swiper-pagination-bullet:hover {
-  transform: scale(1.2);
-}
-
-.swiper-pagination-bullet-active {
-  transition: all 0.3s ease;
-}
+/* Title */
 
 .success-stories-title {
     font-family: Open Sans;
@@ -93,18 +30,12 @@ font-size: var(--text-regular);
 
 .success-stories-swiper {
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
 }
 
 
 .success-stories-lists {
-  
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  margin-bottom: 80px;
-  display: flex; /* Swiper сам применяет, но явно указываем для надёжности */
+  margin-bottom: 110px;
 }
 
 .success-stories-list {
@@ -122,25 +53,129 @@ margin-bottom: 32px;
    font-weight: 600;
 }
 
-
-
-
-.rating {
-display: flex;
-gap: 4px;
+/* Rating */
+.success-stories-list .rating {
 margin-bottom: 32px;
+justify-content: flex-start;
 }
 
-.rating svg {
-  display: block;
-  color: var(--neutral-darkest); /* один цвет для всех */
+.rating .star {
+  position: relative;
+  width: 20px;
+  height: 20px;
 }
-.success-stories-swiper .swiper-button-next,
-.success-stories-swiper .swiper-button-prev {
+
+.rating .icon {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  width: 100%;
+  height: 100%;
+  fill: var(--neutral-darkest);
+  pointer-events: none;
 }
+
+.star .star-empty,
+.rating.value-1 .star:nth-child(-n+1) .star-filled,
+.rating.value-1.half .star:nth-child(2) .star-half {
+  display: block;
+}
+.star .star-filled,
+.star .star-half {
+  display: none;
+}
+
+/* SHow number */
+/* === VALUE 1 === */
+.rating.value-1 .star:nth-child(-n+1) .star-filled { display: block; }
+.rating.value-1.half .star:nth-child(2) .star-half { display: block; }
+
+/* === VALUE 2 === */
+.rating.value-2 .star:nth-child(-n+2) .star-filled { display: block; }
+.rating.value-2.half .star:nth-child(3) .star-half { display: block; }
+
+/* === VALUE 3 === */
+.rating.value-3 .star:nth-child(-n+3) .star-filled { display: block; }
+.rating.value-3.half .star:nth-child(4) .star-half { display: block; }
+
+/* === VALUE 4 === */
+.rating.value-4 .star:nth-child(-n+4) .star-filled { display: block; }
+.rating.value-4.half .star:nth-child(5) .star-half { display: block; }
+
+/* === VALUE 5 === */
+.rating.value-5 .star:nth-child(-n+5) .star-filled { display: block; }
+
+/* swiper */
+
+.success-stories-controls {
+  position: absolute;
+  bottom: 24px;
+left: 0px;
+right: 0px;
+
+  display: flex;
+  align-items: center;
+    justify-content: space-between;
+  pointer-events: none;
+}
+
+.success-stories-controls > * {
+  pointer-events: auto;
+}
+
+.success-stories-controls .swiper-pagination {
+  position: static;
+  transform: none;
+}
+
+.success-stories-controls .swiper-button-prev,
+.success-stories-controls .swiper-button-next {
+ position: static; 
+   /* !important */
+  inset: auto; 
+    /* !important */
+  transform: none;
+  /* !important */
+  margin: 0;
+}
+
+.success-stories-arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.success-stories-carousel-arrow {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+/* Pagination bullet */
+.success-stories-swiper-pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 200px;
+}
+.success-stories-swiper-pagination .swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  background-color: #cfcfcf;
+  border-radius: 50%;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+.success-stories-swiper-pagination .swiper-pagination-bullet-active {
+  width: 12px;
+  height: 12px;
+  background-color: var(--neutral-darkest);
+}
+
+.swiper-pagination-bullet:hover {
+  transform: scale(1.2);
+}
+
+.swiper-pagination-bullet-active {
+  transition: all 0.3s ease;
+}
+
 .success-stories-swiper .swiper-button-prev {
   left: 16px;
 }
@@ -150,8 +185,6 @@ margin-bottom: 32px;
 }
 
 .success-stories-button {
-  /* отступ снизу */
-
 display: flex;
 align-items: center;
 justify-content: center;
@@ -165,43 +198,32 @@ cursor: pointer;
 flex-shrink: 0;
 }
 
-.success-stories-carousel-arrow {
-  stroke: currentColor;
-}
 
 .success-stories-button:hover, .success-stories-button:focus, .success-stories-button:active {
   border: 1px solid var(--neutral-darkest);
 }
 
 
-.is-disabled {
-  background-color: var(--mariner-lightest);
-  opacity: 0.5;
-  pointer-events: none;
-  cursor: default;
-}
+
+
+
 
 /* Tablet */
 @media only screen and (min-width: 768px) {
   .success-stories-section {
-  padding: 32px 64px;
-}
-
-}
-
-/* Desktop */
-@media only screen and (min-width: 1440px) {
-
-  .success-stories-section {
-  padding: 80px 64px;
+  padding: 80px 64px ;
 }
 
 .success-stories-title {
-        font-size: var( --heading-2);
+  font-size: 48px;
 }
 
 .success-stories-subtitle {
-font-size: var(--text-medium);
+font-size: 18px;
 }
 
-  }
+.success-stories-lists {
+  margin-bottom: 120px;
+}
+
+}

@@ -1,8 +1,10 @@
 // scripts for the success stories section
-import spriteUrl from '../images/sprite.svg';
+import 'css-star-rating/css/star-rating.css';
+
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
-import axios from 'axios';
+
+import axios from 'axios'
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
@@ -25,18 +27,42 @@ async function getFeedbacks({ page = 1, limit = 6 } = {}) {
   }
 }
 
+
 function createFeedbacks(feedbacks) {
-  const markup = feedbacks.map(({ author, rate, description }) => `
-    <div class="swiper-slide success-stories-list">
-      <div class="rating" data-rate="${rate}"></div>
-      <p class="success-stories-list-review">${description}</p>
-      <p class="success-stories-list-author">${author}</p>
-    </div>
-  `).join('');
+  const markup = feedbacks.map(({ author, rate, description }) => {
+    const whole = Math.floor(rate);
+    const isHalf = rate % 1 === 0.5;
+    const ratingClass = `rating value-${whole} ${isHalf ? 'half' : ''}`;
+
+    const starSVG = `
+      <svg class="icon star-empty"><use href="../images/sprite.svg#iicon-star-outline"></use></svg>
+      <svg class="icon star-half"><use href="../images/sprite.svg#icon-star-half"></use></svg>
+      <svg class="icon star-filled"><use href="../images/sprite.svg#icon-star-filled"></use></svg>
+    `;
+
+    const stars = Array.from({ length: 5 })
+      .map(() => `<div class="star">${starSVG}</div>`)
+      .join('');
+
+    return `
+      <li class="swiper-slide success-stories-list">
+        <div class="${ratingClass} star-icon color-default">
+          <div class="star-container">
+            ${stars}
+          </div>
+        </div>
+        <p class="success-stories-list-review">${description}</p>
+        <p class="success-stories-list-author">${author}</p>
+      </li>
+    `;
+  }).join('');
 
   reviewsList.innerHTML = '';
   reviewsList.insertAdjacentHTML('beforeend', markup);
 }
+
+
+
 
 let swiper;
 function initSwiper() {
@@ -59,35 +85,6 @@ function initSwiper() {
   });
 }
 
-function initStars() {
-  document.querySelectorAll('.rating').forEach(container => {
-    container.innerHTML = '';
-
-    const rate = parseFloat(container.dataset.rate || 0);
-    const fullStars = Math.floor(rate);
-    const hasHalf = rate % 1 >= 0.5;
-
-    for (let i = 0; i < 5; i++) {
-      let starType;
-
-      if (i < fullStars) {
-        starType = 'icon-star-filled';
-      } else if (i === fullStars && hasHalf) {
-        starType = 'icon-star-half';
-      } else {
-        starType = 'icon-star-outline';
-      }
-
-      const svg = `
-        <svg width="20" height="20" class="star">
-          <use href="${spriteUrl}#${starType}"></use>
-        </svg>
-      `;
-
-      container.insertAdjacentHTML('beforeend', svg);
-    }
-  });
-}
 
 async function handleReviews() {
   try {
@@ -97,9 +94,9 @@ async function handleReviews() {
     createFeedbacks(feedbacks);
     initSwiper();
 
-    requestAnimationFrame(() => {
-      initStars();
-    });
+// setTimeout(() => {
+//   requestAnimationFrame(initRatings);
+// }, 0);
 
   } catch (err) {
     iziToast.error({
