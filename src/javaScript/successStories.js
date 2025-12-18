@@ -35,9 +35,9 @@ function createFeedbacks(feedbacks) {
     const ratingClass = `rating value-${whole} ${isHalf ? 'half' : ''}`;
 
     const starSVG = `
-      <svg class="icon star-empty"><use href="./images/sprite.svg#icon-star-outline"></use></svg>
-      <svg class="icon star-half"><use href="./images/sprite.svg#icon-star-half"></use></svg>
-      <svg class="icon star-filled"><use href="./images/sprite.svg#icon-star-filled"></use></svg>
+      <svg class="icon star-empty"><use href="./sprite.svg#icon-star-outline"></use></svg>
+      <svg class="icon star-half"><use href="./sprite.svg#icon-star-half"></use></svg>
+      <svg class="icon star-filled"><use href="./sprite.svg#icon-star-filled"></use></svg>
     `;
 
     const stars = Array.from({ length: 5 })
