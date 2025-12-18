@@ -42,6 +42,7 @@
     font-size: 16px;
     scroll-behavior: smooth;
     transition: background-color 0.3s;
+    text-decoration: none !important;
 }
 
 @media screen and (max-width: 1440px) {

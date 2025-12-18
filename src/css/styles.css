@@ -8,12 +8,13 @@
 @import url('./reset.css');
 @import url('./base.css');
 @import url('./container.css');
+@import url('./modal.css');
 @import url('./animations.css');
 
 /* Sections style */
 @import url('./partials/header.css'); /*Styles for the Header section*/
-@import url('./partials/hero.css');/*Styles for the Hero section*/
-@import url('./partials/petsList.css');/*Styles for the Header section*/
+@import url('./partials/hero.css'); /*Styles for the Hero section*/
+@import url('./partials/petsList.css'); /*Styles for the Header section*/
 @import url('./partials/aboutUs.css'); /*Styles for the About Us section*/
 @import url('./partials/FAQ.css'); /*Styles for the FAQ section*/
 @import url('./partials/successStories.css'); /*Styles for the Success Stories section*/
