@@ -1,5 +1,4 @@
 // scripts for the success stories section
-const reviewsList = document.querySelector(".swiper-wrapper.success-stories-lists");
 import 'css-star-rating/css/star-rating.css';
 
 import Swiper from 'swiper/bundle';
