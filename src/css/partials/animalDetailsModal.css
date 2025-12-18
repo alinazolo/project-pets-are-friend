@@ -53,6 +53,7 @@
 
 .animal-details-age-and-gender-list {
   display: flex;
+  font-size: var(--text-small-mobile);
 }
 @media (max-width: 768px) {
   .animal-details-content-container {
@@ -122,6 +123,9 @@
     font-size: var(--text-regular-desktop);
   }
   .animal-details-species {
+    font-size: var(--text-small-desktop);
+  }
+  .animal-details-age-and-gender-list {
     font-size: var(--text-small-desktop);
   }
   .animal-details-container button {

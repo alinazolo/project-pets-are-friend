@@ -14,7 +14,7 @@ const orderForm = {
                 <span class="validation js-name-validation">Максимальна довжина ${this.validation.lengthLimits.name} символи</span></div>
                  <div class='order-form-phone-block'>
                 <label for="phone">Телефон*</label>
-                <input type="text" name="phone" id="phone" placeholder="+38 (095) 555 99 22">
+                <input type="text" name="phone" id="phone" placeholder="38 (095) 555 99 22">
                  <span class="validation js-phone-validation">Очікується ${this.validation.lengthLimits.phone} цифр</span></div>
                  <div class='order-form-comment-block'><label for="comment">Коментар</label>
                 <textarea type="textarea" name="comment" id="comment" placeholder="Напишіть ваш коментар"></textarea>
