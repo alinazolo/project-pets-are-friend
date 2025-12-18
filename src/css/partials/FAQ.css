@@ -1,4 +1,7 @@
 .faq {
+  max-width: 864px;
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
 
 @media only screen and (min-width: 1440px) {
@@ -6,11 +9,6 @@
     padding-top: 80px;
     padding-bottom: 80px;
   }
-}
-.faq-container {
-  max-width: 864px;
-  padding-top: 64px;
-  padding-bottom: 64px;
 }
 
 .faq-accordion {
@@ -38,10 +36,10 @@
 
 .faq-accordion-header {
   align-items: center;
-  gap: 12px;
+  gap: 24px;
+  padding: 20px 24px;
   display: flex;
   cursor: pointer;
-  padding: 20px 24px;
 }
 
 .faq-accordion-title {
@@ -83,18 +81,10 @@
 }
 
 .faq-accordion-content--visible {
+  /* display: block; */
   grid-template-rows: 1fr;
 }
 .faq-accordion-content > div {
   overflow: hidden;
-  padding: 0 24px;
-}
-
-.faq-accordion-content > div > *:last-child {
-  margin-bottom: 24px;
-}
-
-.faq-accordion-list {
-  list-style-type: disc;
-  padding-left: 20px;
+  padding: 0 16px;
 }

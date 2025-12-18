@@ -1,1 +1,179 @@
 <!-- html for the about us section -->
+<section class="about" id="aboutUs">
+  <div class="about-container">
+    <h2 class="about-title">Чому Хатинка Лапок</h2>
+
+    <div class="about-slider swiper">
+      <ul class="swiper-wrapper">
+        <li class="swiper-slide about-slide">
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="
+                ./images/Rectangle1.jpg    1x,
+                ./images/Rectangle1@2x.jpg 2x
+              "
+            />
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                ./images/mobile/Rectangle1.jpg    1x,
+                ./images/mobile/Rectangle1@2x.jpg 2x
+              "
+            />
+            <img
+              src="./images/Rectangle1.jpg"
+              width="1312"
+              alt="Людина годує собаку"
+              class="about-image"
+            />
+          </picture>
+          <p class="about-text">
+            Все почалося у 2015 році з кількох небайдужих людей та одного
+            врятованого собаки. Сьогодні ми — один з найбільших притулків у
+            регіоні, але наша мета незмінна: дати другий шанс тим, кого зрадили.
+          </p>
+        </li>
+
+        <li class="swiper-slide about-slide">
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="
+                ./images/Rectangle2.jpg    1x,
+                ./images/Rectangle2@2x.jpg 2x
+              "
+            />
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                ./images/mobile/Rectangle2.jpg    1x,
+                ./images/mobile/Rectangle2@2x.jpg 2x
+              "
+            />
+            <img
+              src="./images/Rectangle2.jpg"
+              width="1312"
+              alt="Собака з притулку"
+              class="about-image"
+            />
+          </picture>
+          <p class="about-text">
+            Ми рятуємо, реабілітуємо та знаходимо люблячі родини для
+            безпритульних тварин. Наша мета — не просто дати прихисток, а й
+            забезпечити кожному "хвостику" щасливе та повноцінне життя в новій
+            родині.
+          </p>
+        </li>
+
+        <li class="swiper-slide about-slide">
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="
+                ./images/Rectangle3.jpg    1x,
+                ./images/Rectangle3@2x.jpg 2x
+              "
+            />
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                ./images/mobile/Rectangle3.jpg    1x,
+                ./images/mobile/Rectangle3@2x.jpg 2x
+              "
+            />
+            <img
+              src="./images/Rectangle3.jpg"
+              width="1312"
+              alt="Команда волонтерів"
+              class="about-image"
+            />
+          </picture>
+          <p class="about-text">
+            "Хатинка Лапок" — це команда професійних ветеринарів, кінологів та
+            десятків волонтерів, які щодня вкладають свою душу та час у турботу
+            про наших підопічних. Ми працюємо 24/7, бо їхнє життя залежить від
+            нас.
+          </p>
+        </li>
+        <li class="swiper-slide about-slide">
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="
+                ./images/Rectangle4.jpg    1x,
+                ./images/Rectangle4@2x.jpg 2x
+              "
+            />
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                ./images/mobile/Rectangle4.jpg    1x,
+                ./images/mobile/Rectangle4@2x.jpg 2x
+              "
+            />
+            <img
+              src="./images/Rectangle4.jpg"
+              width="1312"
+              alt="Майданчик для собак"
+              class="about-image"
+            />
+          </picture>
+          <p class="about-text">
+            Ми створили безпечний та комфортний простір. Кожна тварина отримує
+            якісне харчування, своєчасну ветеринарну допомогу, проходить
+            соціалізацію та гуляє на спеціально обладнаних майданчиках.
+          </p>
+        </li>
+        <li class="swiper-slide about-slide">
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="
+                ./images/Rectangle5.jpg    1x,
+                ./images/Rectangle5@2x.jpg 2x
+              "
+            />
+            <source
+              media="(max-width: 767px)"
+              srcset="
+                ./images/mobile/Rectangle5.jpg    1x,
+                ./images/mobile/Rectangle5@2x.jpg 2x
+              "
+            />
+            <img
+              src="./images/Rectangle5.jpg"
+              width="1312"
+              alt="Щасливий пес"
+              class="about-image"
+            />
+          </picture>
+          <p class="about-text">
+            Ваша допомога — безцінна. Ви можете взяти тваринку додому, стати
+            волонтером, допомогти фінансово або інформаційно. Кожен маленький
+            внесок наближає нас до великої мети — світу без безпритульних
+            тварин.
+          </p>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="about-slider-wrapper">
+      <div class="about-pagination swiper-pagination"/></div>
+
+      <div class="about-slider-navigation">
+        <button class="about-btn about-btn-prev" aria-label="Попередній слайд">
+          <svg width="24" height="24">
+            <use href="./images/sprite.svg#icon-arrow-back"></use>
+          </svg>
+        </button>
+
+        <button class="about-btn about-btn-next" aria-label="Наступний слайд">
+          <svg width="24" height="24">
+            <use href="./images/sprite.svg#icon-arrow-forward"></use>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import baseModal from './modal';
+import animalDetail from './animalDetailsModal';
 
 // VARIABLE----
 
@@ -183,10 +185,6 @@ categoriesList.addEventListener('click', async e => {
   hideLoader();
 });
 
-window.addEventListener('resize', () => {
-  renderPetsList(currentPets.slice(0, displayedCount || getRenderLimit()));
-});
-
 showMoreBtn.addEventListener('click', () => {
   renderMorePets(currentPets);
 });
@@ -198,7 +196,9 @@ petsListCards.addEventListener('click', e => {
   const card = btn.closest('.petlist-pet-card');
   const petId = card.dataset.id;
 
-  console.log('Дізнатися більше', petId);
+  animalDetail.animalId = petId;
+  animalDetail.data = getPetById(petId);
+  baseModal.openModal(animalDetail);
 });
 
 // FUNCTIONAL----
@@ -229,4 +229,10 @@ function checkShowBtn() {
 
 function hideShowBtn() {
   showMoreBtn.classList.add('hidden');
+}
+
+function getPetById(id) {
+  for (const pet of currentPets) {
+    if (pet['_id'] === id) return pet;
+  }
 }

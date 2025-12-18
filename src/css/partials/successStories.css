@@ -1,1 +1,207 @@
 /* styles for the success stories section */
+  .success-stories-section {
+  padding: 20px 64px;
+}
+
+/* position button */
+.swiper.success-stories-swiper {
+  position: relative;
+}
+.success-stories-controls {
+  position: absolute;
+  bottom: 24px;
+left: 0px;
+right: 0px;
+
+  display: flex;
+  align-items: center;
+    justify-content: space-between;
+  pointer-events: none;
+}
+
+.success-stories-controls > * {
+  pointer-events: auto;
+}
+
+.success-stories-controls .swiper-pagination {
+  position: static !important;
+  transform: none !important;
+}
+
+.success-stories-controls .swiper-button-prev,
+.success-stories-controls .swiper-button-next {
+ position: static !important;
+  inset: auto !important;
+  transform: none !important;
+  margin: 0;
+}
+
+.success-stories-arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.success-stories-swiper-pagination {
+ max-width: 200px;
+}
+/* Pagination bullet */
+.success-stories-swiper-pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.success-stories-swiper-pagination .swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  background-color: #cfcfcf;
+  border-radius: 50%;
+  opacity: 1; /* важно */
+  transition: all 0.3s ease;
+}
+.success-stories-swiper-pagination
+.swiper-pagination-bullet-active {
+  width: 12px;
+  height: 12px;
+  background-color: var(--neutral-darkest);
+}
+
+.swiper-pagination-bullet:hover {
+  transform: scale(1.2);
+}
+
+.swiper-pagination-bullet-active {
+  transition: all 0.3s ease;
+}
+
+.success-stories-title {
+    font-family: Open Sans;
+    font-size: 36px;
+     font-weight: 700; 
+    color: var(--neutral-darkest);
+    text-align:center;
+    letter-spacing:-1px;
+    margin-bottom: 24px;
+}
+
+.success-stories-subtitle {
+text-align:center;
+margin-bottom: 40px;
+font-size: var(--text-regular);
+}
+
+
+
+.success-stories-swiper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+.success-stories-lists {
+  
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 80px;
+  display: flex; /* Swiper сам применяет, но явно указываем для надёжности */
+}
+
+.success-stories-list {
+  width: auto;
+  box-sizing: border-box;
+}
+
+.success-stories-list-review {
+font-size: 20px; 
+margin-bottom: 32px;
+}
+
+.success-stories-list-author {
+   font-size: var(--text-regular);
+   font-weight: 600;
+}
+
+
+
+
+.rating {
+display: flex;
+gap: 4px;
+margin-bottom: 32px;
+}
+
+.rating svg {
+  display: block;
+  color: var(--neutral-darkest); /* один цвет для всех */
+}
+.success-stories-swiper .swiper-button-next,
+.success-stories-swiper .swiper-button-prev {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.success-stories-swiper .swiper-button-prev {
+  left: 16px;
+}
+
+.success-stories-swiper .swiper-button-next {
+  right: 16px;
+}
+
+.success-stories-button {
+  /* отступ снизу */
+
+display: flex;
+align-items: center;
+justify-content: center;
+width: 48px;
+height: 48px;
+border-radius: 8px;
+background-color: var(--mariner-lighter);
+border: 1px solid var(--mariner-light);
+padding: 0;
+cursor: pointer;
+flex-shrink: 0;
+}
+
+.success-stories-carousel-arrow {
+  stroke: currentColor;
+}
+
+.success-stories-button:hover, .success-stories-button:focus, .success-stories-button:active {
+  border: 1px solid var(--neutral-darkest);
+}
+
+
+.is-disabled {
+  background-color: var(--mariner-lightest);
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) {
+  .success-stories-section {
+  padding: 32px 64px;
+}
+
+}
+
+/* Desktop */
+@media only screen and (min-width: 1440px) {
+
+  .success-stories-section {
+  padding: 80px 64px;
+}
+
+.success-stories-title {
+        font-size: var( --heading-2);
+}
+
+.success-stories-subtitle {
+font-size: var(--text-medium);
+}
+
+  }

@@ -1,0 +1,97 @@
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.95);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  background-color: var(--modal-bgc);
+  max-width: auto;
+  width: 100%;
+  min-height: 100%;
+  padding: 64px 20px;
+}
+.order-form textarea{
+  resize: none !important;
+}
+.modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+.modal-backdrop.is-hidden {
+  display: none;
+}
+
+.modal {
+  position: relative;
+  background-color: var(--mariner-lightest);
+  width: 100%;
+  max-height: 100%;
+  height: auto;
+  padding: 64px 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  overflow-y: auto;
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-modal-btn:hover,
+.close-modal-btn:focus,
+.close-modal-btn:focus-visible {
+  outline: none;
+  background-color: var(--mariner-lighter);
+  transform: scale(1.05);
+}
+.close-modal-btn:hover svg,
+.close-modal-btn:focus svg,
+.close-modal-btn:focus-visible svg {
+  fill: var(--white);
+}
+
+@media (min-width: 375px) {
+  .modal {
+    width: 335px;
+  }
+}
+
+@media (min-width: 768px) {
+  .modal {
+    width: 704px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .modal {
+    width: fit-content;
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+
+  .modal-content {
+    width: fit-content;
+  }
+}
