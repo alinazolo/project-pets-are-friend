@@ -1,1 +1,90 @@
-/* styles for the hero section */
+.hero {
+    color: #fff;
+    background-image:
+        linear-gradient(to right,
+            rgba(0, 0, 0, 0.45) 0%,
+            rgba(0, 0, 0, 0.25) 50%,
+            rgba(0, 0, 0, 0) 100%),
+        url("/Rectangle6.jpg");
+    background-size: cover;
+    background-position: 90% center;
+    height: 544px;
+    padding-top: 64px;
+}
+
+@media (min-resolution: 2dppx) {
+    .hero {
+        background-image:
+            linear-gradient(to right,
+                rgba(0, 0, 0, 0.45) 0%,
+                rgba(0, 0, 0, 0.25) 50%,
+                rgba(0, 0, 0, 0) 100%),
+            url("/Rectangle6@2x.jpg");
+    }
+}
+
+.hero-title {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    text-align: left;
+    padding-bottom: 24px;
+}
+
+.hero-text {
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    padding-bottom: 32px;
+}
+
+.hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border-radius: 8px;
+    background-color: #88765c;
+    color: #fff;
+    text-decoration: none;
+}
+
+.hero-button:hover,
+.hero-button:focus {
+    background-color: #eee9e3;
+    color: #02060a;
+    text-decoration: none;
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) {
+    .hero {
+        background-position: center;
+    }
+
+    .hero-list {
+        width: 622px;
+    }
+    
+    .hero-text{ 
+        width: 512px;
+        }
+}
+
+/* Desktop */
+@media screen and (min-width: 1280px) {
+    .hero {
+        height: 900px;
+        padding-top: 128px;
+    }
+
+    .hero-title {
+        font-size: 56px;
+    }
+
+    .hero-text {
+        font-size: 18px;
+    }
+}

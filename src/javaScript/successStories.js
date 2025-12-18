@@ -9,16 +9,19 @@ import axios from 'axios'
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-//request
+const reviewsList = document.querySelector(".swiper-wrapper.success-stories-lists");
+const reviewsNextButton = document.querySelector('.success-stories-button-next');
+const reviewsPrevButton = document.querySelector('.success-stories-button-prev');
+const reviewsPagination = document.querySelector(".success-stories-swiper-pagination");
+
 const BASE_URL = "https://paw-hut.b.goit.study";
 const END_POINT = "/api/feedbacks";
 axios.defaults.baseURL = BASE_URL;
+
 async function getFeedbacks({ page = 1, limit = 6 } = {}) {
   try {
-    const response = await axios.get(END_POINT, {
-      params: { page, limit },
-    });
-    return response.data; 
+    const response = await axios.get(END_POINT, { params: { page, limit } });
+    return response.data;
   } catch (error) {
     console.error('❌ Error receiving reviews:', error);
     throw error;
@@ -63,29 +66,21 @@ function createFeedbacks(feedbacks) {
 
 
 let swiper;
-
 function initSwiper() {
   swiper = new Swiper('.success-stories-swiper', {
-    slidesPerView: 2,
+    slidesPerView: 1,
     spaceBetween: 32,
-
     navigation: {
       nextEl: '.success-stories-button-next',
       prevEl: '.success-stories-button-prev',
     },
-
     pagination: {
       el: '.success-stories-swiper-pagination',
       clickable: true,
- 
     },
-
     breakpoints: {
       768: {
         slidesPerView: 2,
-      },
-      0: {
-        slidesPerView: 1,
       },
     },
   });
@@ -94,11 +89,10 @@ function initSwiper() {
 
 async function handleReviews() {
   try {
-    const data = await getFeedbacks(); 
+    const data = await getFeedbacks();
     const { feedbacks } = data;
 
     createFeedbacks(feedbacks);
-
     initSwiper();
 
 // setTimeout(() => {
@@ -108,7 +102,7 @@ async function handleReviews() {
   } catch (err) {
     iziToast.error({
       title: 'Error',
-      message: err.message,
+      message: 'Failed to load reviews',
       position: 'topRight',
     });
   }

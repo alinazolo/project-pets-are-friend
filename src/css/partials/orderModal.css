@@ -1,1 +1,65 @@
 /* styles for the order modal */
+
+.order-form {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--text-regular-mobile);
+  line-height: 150%;
+}
+
+.order-title {
+  margin-bottom: 48px;
+  font-family: Open Sans;
+}
+
+.order-form label {
+  margin-bottom: 8px;
+}
+.order-form input,
+.order-form textarea {
+  background-color: var(--neutral-darkest-5);
+  margin-bottom: 24px;
+  border: none;
+}
+
+.order-form input {
+  padding: 8px 12px;
+  height: 37px;
+}
+
+.order-form textarea {
+  padding: 12px 12px;
+  height: 180px;
+}
+
+.order-form button {
+  margin: auto;
+  width: 100%;
+}
+
+@media (min-width: 375px) {
+}
+
+@media (min-width: 768px) {
+  .order-form button {
+    width: 240px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .order-form {
+    width: 640px;
+    font-size: var(--text-regular-desktop);
+  }
+
+  .order-form h2 {
+    font-size: var(--heading-2-desktop);
+  }
+
+  .order-form input {
+    height: 40px;
+  }
+  .order-form button {
+    font-size: var(--text-regular-desktop);
+  }
+}

@@ -1,1 +1,132 @@
 /* styles for the animal details modal */
+
+.animal-details-content-container {
+  font-size: var(--text-regular-mobile);
+  display: grid;
+  grid-template-areas:
+    'header-section'
+    'describe-section'
+    'button';
+}
+
+.animal-details-content-container .grid-header {
+  grid-area: header-section;
+}
+.animal-details-content-container .grid-description {
+  grid-area: describe-section;
+  margin-bottom: 24px;
+}
+.animal-details-content-container .grid-button {
+  grid-area: button;
+}
+
+.animal-details-img-container {
+  max-width: 295px;
+  height: 295px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.animal-details-img-container img {
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.animal-details-species {
+  font-size: var(--text-small-mobile);
+  margin-bottom: 8px;
+}
+
+.animal-details-name,
+.animal-details-container h4 {
+  margin-bottom: 8px;
+}
+
+.animal-details-age-and-gender-list,
+.animal-details-description,
+.animal-details-healthStatus {
+  margin-bottom: 24px;
+}
+
+.animal-details-age-and-gender-list {
+  display: flex;
+}
+
+.animal-details-gender {
+  margin-left: 16px;
+}
+
+.animal-details-container button {
+  margin: auto;
+  width: 100%;
+}
+
+@media (min-width: 375px) {
+}
+
+@media (min-width: 768px) {
+  .animal-details-container {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  .animal-details-img-container {
+    width: 304px;
+    min-width: 304px;
+    height: 450px;
+    margin-bottom: 0;
+  }
+  .animal-details-content-container {
+    margin-left: 32px;
+    grid-template-areas:
+      'header-section'
+      'button'
+      'describe-section';
+  }
+  .animal-details-content-container .grid-description {
+    margin-bottom: 0;
+  }
+  .animal-details-content-container .grid-button {
+    margin-bottom: 24px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .animal-details-container {
+    width: 1184px;
+  }
+  .animal-details-content-container {
+    font-size: var(--text-regular-desktop);
+    grid-template-areas:
+      'header-section'
+      'describe-section'
+      'button';
+  }
+  .animal-details-img-container {
+    width: 576px;
+    min-width: 576px;
+    height: 450px;
+    margin-bottom: 0;
+  }
+  .animal-details-container h2 {
+    font-size: var(--heading-2-desktop);
+  }
+  .animal-details-container h4 {
+    font-size: var(--text-regular-desktop);
+  }
+  .animal-details-species {
+    font-size: var(--text-small-desktop);
+  }
+  .animal-details-container button {
+    font-size: var(--text-regular-desktop);
+  }
+  .animal-details-content-container .grid-description {
+    margin-bottom: 24px;
+  }
+  .animal-details-content-container .grid-button {
+    margin-bottom: 0;
+  }
+}

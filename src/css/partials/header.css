@@ -1,1 +1,133 @@
 /* styles for the header section */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.header-logo {
+    padding: 6px 0;
+}
+.nav-list {
+    display: flex;
+    gap: 32px;
+}
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+.nav-item {
+    font-weight: 400;
+    color: #02060a;
+    line-height: 1.5;
+    font-size: 16px;
+    
+}
+
+
+.nav-header-link {
+    padding: 18px 0;
+    scroll-behavior: smooth
+}
+.modal-nav-link {
+    scroll-behavior: smooth;
+}
+.cta-btn-header, .cta-btn-modal {
+    border-radius: 8px;
+    padding: 8px 20px;
+    background: #88765c;
+    color: #fff;
+    font-size: 16px;
+    scroll-behavior: smooth;
+    transition: background-color 0.3s;
+    text-decoration: none !important;
+}
+
+@media screen and (max-width: 1440px) {
+    .nav-list, .cta-btn-header {
+        display: none;
+    }
+}
+
+.cta-btn-header:hover, .cta-btn-header:focus {
+    background: #6b5a47;
+}
+
+.burger-btn {
+    display: none;
+}
+
+.burger-btn, .close-btn {
+    padding: 12px;
+    transition: opacity 0.3s;
+}
+
+@media screen and (max-width: 1440px) {
+    .burger-btn {
+        display: block;
+    }
+}
+
+.modal-menu {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: #F6F4F1;
+    z-index: 1000;
+}
+
+.modal-menu.active {
+    display: block;
+}
+
+.mobile-menu-modal-container {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    padding: 16px 20px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1440px) {
+    .mobile-menu-modal-container {
+        align-items: center;
+    }
+}
+
+.mobile-menu-modal-nav {
+    margin-top: 24px;
+}
+
+.modal-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1440px) {
+    .modal-nav-list {
+        align-items: center;
+    }
+}
+
+.modal-nav-item {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #02060a;
+}
+
+.cta-btn-modal {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    font-size: 14px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1440px) {
+    .cta-btn-modal {
+        width: 196px;
+    }
+}

@@ -1,1 +1,234 @@
 /* styles for the about us section */
+.about {
+  padding: 64px 20px;
+}
+
+@media (min-width: 768px) {
+  .about {
+    padding: 64px 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .about {
+    padding: 80px 64px;
+  }
+}
+
+.about-container {
+  max-width: 375px;
+  margin: 0 auto;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .about-container {
+    max-width: 744px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .about-container {
+    max-width: 1352px;
+  }
+}
+
+.about-title {
+  font-size: 36px;
+  line-height: 1.2;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.abou-slider {
+  position: relative;
+}
+
+.about-slide {
+  position: relative;
+  overflow: hidden;
+}
+
+.about-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.18) 0%,
+    rgba(0, 0, 0, 0.63) 100%
+  );
+  pointer-events: none;
+}
+
+.about-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.about-text {
+  position: absolute;
+  z-index: 2;
+  left: 20px;
+  bottom: 20px;
+  width: 295px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .about-text {
+    left: 32px;
+    width: 548px;
+    bottom: 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .about-text {
+    left: 64px;
+    bottom: 64px;
+    font-size: 18px;
+  }
+}
+
+/* Navigation buttons */
+.about-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #c3b49d;
+  padding: 12px;
+  background-color: #eee9e3;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-btn:disabled,
+.swiper-button-disabled {
+  border: 1px solid #f6f4f1;
+  background-color: #eee9e3;
+  opacity: 0.4;
+  cursor: default;
+}
+
+.about-btn:hover,
+.about-btn:focus {
+  border: 1px solid rgba(2, 6, 10, 0.6);
+  background-color: #eee9e3;
+}
+
+.about-btn:active {
+  border: 1px solid rgba(2, 6, 10, 0.6);
+  box-shadow: inset 0 4px 6px -2px rgba(0, 0, 0, 0.03),
+    inset 0 12px 16px -4px rgba(0, 0, 0, 0.08);
+  background-color: #eee9e3;
+}
+
+@media (min-width: 768px) {
+  .about-btn-next,
+  .about-btn-prev {
+    position: absolute;
+    top: 50%;
+    z-index: 999;
+  }
+
+  .about-btn-next {
+    right: -29px;
+  }
+
+  .about-btn-prev {
+    left: -29px;
+  }
+}
+
+/* Pagination */
+
+.about-slider-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  top: 24px;
+}
+
+@media (min-width: 768px) {
+  .about-slider-wrapper {
+    position: static;
+    top: unset;
+  }
+}
+
+.about-slider-navigation {
+  display: flex;
+  width: 251px;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.about-pagination {
+  display: flex;
+  width: 60px;
+  height: 8px;
+  padding: 10px 0;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  overflow: visible;
+  gap: 8px;
+}
+
+.about .about-container .about-slider-wrapper .swiper-pagination {
+  position: static;
+  left: 0;
+  bottom: unset;
+  transform: unset;
+  max-width: 100px;
+}
+
+@media (min-width: 768px) {
+  .about .about-container .about-slider-wrapper .swiper-pagination {
+    position: relative;
+    left: 50%;
+    top: 24px;
+    transform: translateX(calc(-50%));
+  }
+}
+
+@media (min-width: 1440px) {
+  .about .about-container .about-slider-wrapper .swiper-pagination {
+    top: 48px;
+  }
+}
+
+.about-pagination .swiper-pagination-bullet {
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  background-color: #c4c4c4;
+  opacity: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.swiper-pagination-bullet:not(.swiper-pagination-bullet-active):hover {
+  transform: scale(1.2);
+}
+
+.about-pagination .swiper-pagination-bullet-active-prev,
+.about-pagination .swiper-pagination-bullet-active-next {
+  width: 6px;
+  height: 6px;
+}
+
+.about-pagination .swiper-pagination-bullet-active {
+  background-color: #02060a;
+  width: 8px;
+  height: 8px;
+}
