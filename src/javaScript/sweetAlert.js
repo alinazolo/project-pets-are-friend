@@ -20,7 +20,7 @@ const notification = {
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: message,
+      html: message,
     });
   },
 };

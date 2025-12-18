@@ -11,14 +11,24 @@
   margin-bottom: 48px;
   font-family: Open Sans;
 }
-
+.order-form-name-block,
+.order-form-phone-block,
+.order-form-comment-block {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
 .order-form label {
   margin-bottom: 8px;
+}
+.order-form .validation {
+  font-size: var(--text-small-mobile);
+  color: var(--neutral);
+  margin-left: 12px;
 }
 .order-form input,
 .order-form textarea {
   background-color: var(--neutral-darkest-5);
-  margin-bottom: 24px;
   border: none;
 }
 
@@ -35,6 +45,14 @@
 .order-form button {
   margin: auto;
   width: 100%;
+}
+
+input.input-error,
+textarea.input-error {
+  border: 1px solid var(--red);
+}
+.validation.error {
+  color: var(--red);
 }
 
 @media (min-width: 375px) {

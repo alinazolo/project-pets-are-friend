@@ -1,7 +1,11 @@
-import animalDetail from './animalDetailsModal';
-import refs from './refs';
+const refs = {
+  main: document.querySelector('main'),
+  modalContainer: document.querySelector('.js-modal-backdrop'),
+  modalContent: document.querySelector('.js-modal-content'),
+  openModalBtn: document.querySelector('.open-modal-btn'),
+  closeModalBtn: document.querySelector('.js-close-modal-btn'),
+};
 
-// const contentObj = animalDetail;
 let lastFocusedNode = null;
 const baseModal = {
   modalNode: refs.modalContainer,
@@ -60,8 +64,4 @@ const baseModal = {
   },
 };
 
-// refs.openModalBtn.addEventListener('click', () => {
-//   animalDetail.animalId = '667ad1b8e4b01a2b3c4d5e55';
-//   baseModal.openModal(animalDetail);
-// });
 export default baseModal;
