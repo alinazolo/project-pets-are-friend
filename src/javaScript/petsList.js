@@ -270,8 +270,6 @@ function hideShowBtn() {
   showMoreBtn.classList.add('hidden');
 }
 
-// ================= Pagination_INIT =================
-
 // ================= Pagination_RENDER =================
 
 function renderPagination() { 
