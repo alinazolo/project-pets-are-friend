@@ -1,1 +1,100 @@
-/* styles for the faq section */
+.faq {
+}
+
+@media only screen and (min-width: 1440px) {
+  .faq {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}
+.faq-container {
+  max-width: 864px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-title {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 120%;
+  letter-spacing: -1%;
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.faq-accordion-item {
+  list-style: none;
+  width: 100%;
+  border-radius: 8px;
+  background: #eee9e3;
+}
+
+.faq-accordion-header {
+  align-items: center;
+  gap: 12px;
+  display: flex;
+  cursor: pointer;
+  padding: 20px 24px;
+}
+
+.faq-accordion-title {
+  margin-right: auto;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 150%;
+  letter-spacing: 0%;
+}
+
+.faq-accordion-button {
+  padding: 0;
+  height: 24px;
+  width: 24px;
+}
+
+.faq-accordion-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.faq-accordion-icon--rotated {
+  transform: rotate(45deg);
+}
+
+.faq-accordion-content {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 150%;
+  letter-spacing: 0%;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.faq-accordion-content--visible {
+  grid-template-rows: 1fr;
+}
+.faq-accordion-content > div {
+  overflow: hidden;
+  padding: 0 24px;
+}
+
+.faq-accordion-content > div > *:last-child {
+  margin-bottom: 24px;
+}
+
+.faq-accordion-list {
+  list-style-type: disc;
+  padding-left: 20px;
+}

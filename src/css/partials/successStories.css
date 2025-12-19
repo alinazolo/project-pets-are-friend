@@ -1,1 +1,229 @@
 /* styles for the success stories section */
+  .success-stories-section {
+  padding: 64px 20px;
+}
+
+/* position button */
+.swiper.success-stories-swiper {
+  position: relative;
+}
+
+/* Title */
+
+.success-stories-title {
+    font-family: Open Sans;
+    font-size: 36px;
+     font-weight: 700; 
+    color: var(--neutral-darkest);
+    text-align:center;
+    letter-spacing:-1px;
+    margin-bottom: 24px;
+}
+
+.success-stories-subtitle {
+text-align:center;
+margin-bottom: 40px;
+font-size: var(--text-regular);
+}
+
+
+
+.success-stories-swiper {
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+.success-stories-lists {
+  margin-bottom: 110px;
+}
+
+.success-stories-list {
+  width: auto;
+  box-sizing: border-box;
+}
+
+.success-stories-list-review {
+font-size: 20px; 
+margin-bottom: 32px;
+}
+
+.success-stories-list-author {
+   font-size: var(--text-regular);
+   font-weight: 600;
+}
+
+/* Rating */
+.success-stories-list .rating {
+margin-bottom: 32px;
+justify-content: flex-start;
+}
+
+.rating .star {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.rating .icon {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  fill: var(--neutral-darkest);
+  pointer-events: none;
+}
+
+.star .star-empty,
+.rating.value-1 .star:nth-child(-n+1) .star-filled,
+.rating.value-1.half .star:nth-child(2) .star-half {
+  display: block;
+}
+.star .star-filled,
+.star .star-half {
+  display: none;
+}
+
+/* SHow number */
+/* === VALUE 1 === */
+.rating.value-1 .star:nth-child(-n+1) .star-filled { display: block; }
+.rating.value-1.half .star:nth-child(2) .star-half { display: block; }
+
+/* === VALUE 2 === */
+.rating.value-2 .star:nth-child(-n+2) .star-filled { display: block; }
+.rating.value-2.half .star:nth-child(3) .star-half { display: block; }
+
+/* === VALUE 3 === */
+.rating.value-3 .star:nth-child(-n+3) .star-filled { display: block; }
+.rating.value-3.half .star:nth-child(4) .star-half { display: block; }
+
+/* === VALUE 4 === */
+.rating.value-4 .star:nth-child(-n+4) .star-filled { display: block; }
+.rating.value-4.half .star:nth-child(5) .star-half { display: block; }
+
+/* === VALUE 5 === */
+.rating.value-5 .star:nth-child(-n+5) .star-filled { display: block; }
+
+/* swiper */
+
+.success-stories-controls {
+  position: absolute;
+  bottom: 24px;
+left: 0px;
+right: 0px;
+
+  display: flex;
+  align-items: center;
+    justify-content: space-between;
+  pointer-events: none;
+}
+
+.success-stories-controls > * {
+  pointer-events: auto;
+}
+
+.success-stories-controls .swiper-pagination {
+  position: static;
+  transform: none;
+}
+
+.success-stories-controls .swiper-button-prev,
+.success-stories-controls .swiper-button-next {
+ position: static; 
+   /* !important */
+  inset: auto; 
+    /* !important */
+  transform: none;
+  /* !important */
+  margin: 0;
+}
+
+.success-stories-arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.success-stories-carousel-arrow {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+/* Pagination bullet */
+.success-stories-swiper-pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 200px;
+}
+.success-stories-swiper-pagination .swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  background-color: #cfcfcf;
+  border-radius: 50%;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+.success-stories-swiper-pagination .swiper-pagination-bullet-active {
+  width: 12px;
+  height: 12px;
+  background-color: var(--neutral-darkest);
+}
+
+.swiper-pagination-bullet:hover {
+  transform: scale(1.2);
+}
+
+.swiper-pagination-bullet-active {
+  transition: all 0.3s ease;
+}
+
+.success-stories-swiper .swiper-button-prev {
+  left: 16px;
+}
+
+.success-stories-swiper .swiper-button-next {
+  right: 16px;
+}
+
+.success-stories-button {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 48px;
+height: 48px;
+border-radius: 8px;
+background-color: var(--mariner-lighter);
+border: 1px solid var(--mariner-light);
+padding: 0;
+cursor: pointer;
+flex-shrink: 0;
+}
+
+
+.success-stories-button:hover, .success-stories-button:focus, .success-stories-button:active {
+  border: 1px solid var(--neutral-darkest);
+}
+
+
+
+
+
+
+/* Tablet */
+@media only screen and (min-width: 768px) {
+  .success-stories-section {
+  padding: 80px 64px ;
+}
+
+.success-stories-title {
+  font-size: 48px;
+}
+
+.success-stories-subtitle {
+font-size: 18px;
+}
+
+.success-stories-lists {
+  margin-bottom: 120px;
+}
+
+}

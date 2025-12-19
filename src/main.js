@@ -5,8 +5,6 @@ import './javaScript/aboutUs.js'; /* Importing aboutUs.js for about us section f
 import './javaScript/FAQ.js'; /* Importing FAQ.js for FAQ section functionality */
 import './javaScript/successStories.js'; /* Importing successStories.js for success stories functionality */
 import './javaScript/footer.js'; /* Importing footer.js for footer functionality */
-
-import './javaScript/animalDetailsModal.js'; /* Importing animalDetailsModal.js for animal details modal functionality */
-import './javaScript/orderModal.js'; /* Importing orderModal.js for order modal functionality */
-
-
+import './javaScript/modal.js'; /* Importing modal.js for any modal */
+import './css/styles.css'; /* Importing main styles */
+import './css/partials/hero.css'; /* Importing hero section styles */

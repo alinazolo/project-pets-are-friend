@@ -1,105 +1,112 @@
 import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import baseModal from './modal';
+import animalDetail from './animalDetailsModal';
+import Pagination from 'tui-pagination';
+import 'tui-pagination/dist/tui-pagination.css';
 
-// VARIABLE----
+// ================= DOM =================
 
 const categoriesList = document.querySelector('.js-pet-list-categories');
 const petsListCards = document.querySelector('.js-pets-list-cards');
-// const showMoreBtn = document.querySelector('.js-showmore-btn');
+const showMoreBtn = document.querySelector('.js-showmore-btn');
 const loaderElem = document.querySelector('.js-loader');
 
-    //СЕЛЕКТОИ ПАГІНАЦІЇ
-const paginationContainer = document.querySelector('.js-pagination');
-const paginationNumbers = document.querySelector('.js-pagination-numbers');
-const prevBtn = document.querySelector('.js-prev-btn');
-const nextBtn = document.querySelector('.js-next-btn');
+// ================= STATE =================
 
-let ALLPETS = [];
-// let displayedCount = 0;
 let currentPets = [];
-    //ПАГІНАЦІЯ
+let currentCategory = 'all';
 let currentPage = 1;
-let totalPages = 1;
+let visibleCount = 0;
+let totalItems = 0;
 
+const API_LIMIT = getRenderLimit();
 
-// FETCHES----
+// ================= Pagination_STATE ================= 
+let paginationCurrentPage = 1;
+let paginationTotalPages = 0;
+let pagination = null;
 
-async function getPetsCategorie() {
+// ================= API =================
+
+async function getPetsCategories() {
   try {
     const res = await axios.get('https://paw-hut.b.goit.study/api/categories');
-
-    const categories = res.data;
-
-    renderCategories(categories);
+    renderCategories(res.data);
   } catch (err) {
     iziToast.error({
       title: 'Помилка',
-      message: err.response?.data?.message || 'Неможливо завантажити дані',
+      message: 'Неможливо завантажити категорії',
     });
   }
 }
 
-async function getPetsList() {
+async function getPetsList({ category = 'all', page = 1 } = {}) {
   try {
+    const params = {
+      page,
+      limit: API_LIMIT,
+    };
+
+    if (category !== 'all') {
+      params.categoryId = category;
+    }
+
     const res = await axios.get('https://paw-hut.b.goit.study/api/animals', {
-      params: {
-        page: 1,
-        limit: 30,
-      },
+      params,
     });
 
-    ALLPETS = res.data.animals;
-    currentPets = ALLPETS;
-
-    renderPetsList(ALLPETS);
+    return res.data;
   } catch (err) {
     iziToast.error({
       title: 'Помилка',
-      message: err.response?.data?.message || 'Неможливо завантажити дані',
+      message: 'Неможливо завантажити тварин',
     });
+    return { animals: [], totalItems: 0 };
   }
 }
 
-// RENDERS----
+// ================= RENDER =================
+
 function renderCategories(categories) {
-  const allButton = `<li class="pets-list-categories-item">
-      <button class="category-btn active" type="button" data-name="all">Всі</button>
+  const allBtn = `
+    <li>
+      <button class="category-btn active" data-category-id="all">
+        Всі
+      </button>
     </li>`;
-  const markup = categories.map(renderCategorie).join('');
-  categoriesList.innerHTML = allButton + markup;
+
+  categoriesList.innerHTML =
+    allBtn + categories.map(renderCategoryItem).join('');
 }
 
-function renderCategorie(category) {
-  return `<li>
-        <button class="category-btn" type="button" data-category="${category._id}" data-name="${category.name}">
-          ${category.name}
-        </button>
-      </li>`;
+function renderCategoryItem(category) {
+  return `
+    <li>
+      <button class="category-btn" data-category-id="${category._id}">
+        ${category.name}
+      </button>
+    </li>`;
 }
 
-function getRenderLimit() {
-  return window.innerWidth >= 1440 ? 9 : 8;
-}
+function renderNextBatch() {
+  const uiLimit = getRenderLimit();
 
-function renderPetsList(pets) {
-  petsListCards.innerHTML = '';
-  currentPage = 1;
+  const nextPets = currentPets.slice(visibleCount, visibleCount + uiLimit);
 
-  if (!pets.length) {
-    petsListCards.innerHTML = 
-        '<p>Нажаль наразі не має доступних хатніх тваринок 😞 </p>';
+  if (!nextPets.length) {
+    checkShowBtn();
     return;
   }
 
-  totalPages = Math.ceil(pets.length / getRenderLimit());
+  petsListCards.insertAdjacentHTML(
+    'beforeend',
+    nextPets.map(createPetCard).join('')
+  );
 
-  const limit = getRenderLimit();
-  const petsToShow = pets.slice(0, limit);
-  const markup = petsToShow.map(createPetCard).join('');
-  petsListCards.innerHTML = markup;
-
-  updatePaginationButtons();
+  visibleCount += nextPets.length;
+  checkShowBtn();
 }
 
 function createPetCard(pet) {
@@ -119,7 +126,7 @@ function createPetCard(pet) {
 
             <ul class="petlist-pet-categories">
     ${
-      pet.categories && pet.categories.length
+      pet.categories?.length
         ? pet.categories
             .map(cat => `<li class="petlist-pet-category">${cat.name}</li>`)
             .join('')
@@ -143,128 +150,218 @@ function createPetCard(pet) {
     </li>`;
 }
 
-function updatePaginationButtons() {
-  let numbersHTML = '';
-  for (let i = 1; i <= totalPages; i++) {
-    const activeClass = i === currentPage ? 'active' : '';
-    numbersHTML += `<button class="pagination-number ${activeClass}" data-page="${i}">${i}</button>`;
+// ================= LOAD LOGIC =================
+
+async function loadInitialPets() {
+  showLoader();
+
+  currentPage = 1;
+  paginationCurrentPage = 1; // Скидаємо пагінацію на першу сторінку
+  visibleCount = 0;
+  petsListCards.innerHTML = '';
+
+  const data = await getPetsList({
+    category: currentCategory,
+    page: currentPage,
+  });
+
+  currentPets = data.animals;
+  totalItems = data.totalItems;
+
+  initPagination(totalItems); // Pagination_ініціалізація
+
+  renderNextBatch();
+  hideLoader();
+}
+
+async function loadMorePets() {
+  const uiLimit = getRenderLimit();
+
+  if (visibleCount < currentPets.length) {
+    renderNextBatch();
+    return;
   }
-  paginationNumbers.innerHTML = numbersHTML;
 
-  prevBtn.disabled = currentPage === 1;
-  nextBtn.disabled = currentPage === totalPages;
+  if (visibleCount >= totalItems) {
+    hideShowBtn();
+    return;
+  }
+
+  showLoader();
+  currentPage += 1;
+
+  const data = await getPetsList({
+    category: currentCategory,
+    page: currentPage,
+  });
+
+  currentPets.push(...data.animals);
+  renderNextBatch();
+
+  hideLoader();
 }
 
-function goToPage(pageNumber) {
-  if (pageNumber < 1 || pageNumber > totalPages) return;
-
-  currentPage = pageNumber;
-  const limit = getRenderLimit();
-  const startIndex = (currentPage - 1) * limit;
-  const petsToShow = currentPets.slice(startIndex, startIndex + limit);
-
-  const markup = petsToShow.map(createPetCard).join('');
-  petsListCards.innerHTML = markup;
-  updatePaginationButtons();
-}
-
-//function renderMorePets(petArr) {
-//  const limit = getRenderLimit();
-//  const nextPart = petArr.slice(displayedCount, displayedCount + limit);
-
-//  if (nextPart.length === 0) {
-//  hideShowBtn();
-//    return;
-//  }
-
-//  const markup = nextPart.map(createPetCard).join('');
-//  petsListCards.insertAdjacentHTML('beforeend', markup);
-
-//  displayedCount += nextPart.length;
-//  checkShowBtn();
-//}
-
-// EVENTS----
+// ================= EVENTS =================
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await Promise.all([getPetsList(), getPetsCategorie()]);
-  hideLoader();
+  await loadInitialPets();
+  await getPetsCategories();
 });
 
 categoriesList.addEventListener('click', async e => {
-  e.preventDefault();
+  const btn = e.target.closest('.category-btn');
+  if (!btn) return;
 
-  const button = e.target.closest('button.category-btn');
-  if (!button || !categoriesList.contains(button)) return;
+  const categoryId = btn.dataset.categoryId;
+  if (categoryId === currentCategory) return;
 
-  showLoader();
-  petsListCards.innerHTML = '';
-  await new Promise(resolve => setTimeout(resolve, 300));
-
-  const selectedCategoryName = button.dataset.name;
-  currentPets = filterPetsByCategory(selectedCategoryName);
-
-  renderPetsList(currentPets);
+  currentCategory = categoryId;
 
   categoriesList
     .querySelectorAll('.category-btn')
-    .forEach(btn => btn.classList.remove('active'));
-  button.classList.add('active');
-  hideLoader();
+    .forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  await loadInitialPets();
+  renderPagination(); // Оновлюємо пагінацію після зміни категорії
 });
 
-window.addEventListener('resize', () => {
-  renderPetsList(currentPets);
-});
-
-prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
-nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
-paginationNumbers.addEventListener('click', (e) => {
-  if (e.target.classList.contains('pagination-number')) {
-    goToPage(parseInt(e.target.dataset.page));
-  }
-});
-
-//showMoreBtn.addEventListener('click', () => {
-//  renderMorePets(currentPets);
-//});
+showMoreBtn.addEventListener('click', loadMorePets);
 
 petsListCards.addEventListener('click', e => {
   const btn = e.target.closest('.js-pet-more-btn');
   if (!btn) return;
 
   const card = btn.closest('.petlist-pet-card');
-  const petId = card.dataset.id;
+  const pet = currentPets.find(p => p._id === card.dataset.id);
 
-  console.log('Дізнатися більше', petId);
+  if (!pet) return;
+
+  animalDetail.animalId = pet._id;
+  animalDetail.data = pet;
+  baseModal.openModal(animalDetail);
 });
 
-// FUNCTIONAL----
-function filterPetsByCategory(categoryName) {
-  if (categoryName === 'all') return ALLPETS;
-  return ALLPETS.filter(pet =>
-    pet.categories?.some(pet => pet && pet.name === categoryName)
-  );
+// ================= UTILS =================
+
+function getRenderLimit() {
+  return window.innerWidth >= 1440 ? 9 : 8;
 }
 
-function hideLoader() {
-  loaderElem.classList.add('hidden');
-//  checkShowBtn();
+function checkShowBtn() {
+  if (window.innerWidth >= 1440) {
+    showMoreBtn.classList.add('hidden');
+    return;
+  }
+  showMoreBtn.classList.toggle('hidden', visibleCount >= totalItems);
 }
 
 function showLoader() {
   loaderElem.classList.remove('hidden');
-//  hideShowBtn();
+  hideShowBtn();
 }
 
-//function checkShowBtn() {
-//  if (displayedCount < currentPets.length) {
-//    showMoreBtn.classList.remove('hidden');
-//  } else {
-//    showMoreBtn.classList.add('hidden');
-//  }
-//}
+function hideLoader() {
+  loaderElem.classList.add('hidden');
+  checkShowBtn();
+}
 
-//function hideShowBtn() {
-//  showMoreBtn.classList.add('hidden');
-//}
+function hideShowBtn() {
+  showMoreBtn.classList.add('hidden');
+}
+
+// ================= Pagination_INIT =================
+
+// ================= Pagination_RENDER =================
+
+function renderPagination() { 
+  if (!pagination) return;
+  pagination.reset(totalItems);
+}
+
+// ================= Pagination_INIT =================
+
+function initPagination(totalItemsCount) { 
+  if (window.innerWidth < 768) return; // Pagination_з планшета
+
+  paginationTotalPages = Math.ceil(totalItemsCount / API_LIMIT);
+  paginationCurrentPage = 1;
+
+  const paginationContainer = document.querySelector('.js-pagination');
+  if (!paginationContainer) return;
+
+  const options = {
+    totalItems: totalItemsCount,
+    itemsPerPage: API_LIMIT,
+    visiblePages: 3,
+    centerAlign: true,
+    template: {
+      page: '<button class="pagination-btn pagination-page">{{page}}</button>',
+      currentPage: '<button class="pagination-btn pagination-page active">{{page}}</button>',
+      
+      moveButton: '<button class="pagination-btn pagination-arrow tui-{{type}}"><svg class="pagination-arrow-icon" width="24" height="24" viewBox="0 0 24 24"><use href="/images/sprite.svg#icon-arrow-back"></use></svg></button>',
+      disabledMoveButton: '<button class="pagination-btn pagination-arrow tui-is-disabled tui-{{type}}"><svg class="pagination-arrow-icon" width="24" height="24" viewBox="0 0 24 24"><use href="/images/sprite.svg#icon-arrow-back"></use></svg></button>',
+      
+      firstPage: '<button class="pagination-btn pagination-page">1</button>',
+      lastPage: '<button class="pagination-btn pagination-page">{{totalPages}}</button>',
+    },
+  };
+
+  pagination = new Pagination(paginationContainer, options);
+
+  // Оновлюємо firstBtn і lastBtn одразу після ініціалізації
+  setTimeout(() => {
+    const firstBtn = document.querySelector('.pagination .tui-first');
+    const lastBtn = document.querySelector('.pagination .tui-last');
+    const nextBtns = document.querySelectorAll('.pagination .tui-next use');
+    
+    if (firstBtn) {
+      firstBtn.style.display = 'none'; // Ховаємо при ініціалізації
+    }
+    if (lastBtn) {
+      lastBtn.textContent = paginationTotalPages;
+    }
+    // Змінюємо іконки next кнопок на forward
+    nextBtns.forEach(use => {
+      use.setAttribute('href', '/images/sprite.svg#icon-arrow-forward');
+    });
+  }, 0);
+
+  pagination.on('afterMove', async (event) => {
+    const currentPage = event.page;
+    const totalPages = Math.ceil(totalItems / API_LIMIT);
+
+    // Ховаємо first на 1-2 сторінках, last на останніх двох
+    const firstBtn = document.querySelector('.pagination .tui-first');
+    const lastBtn = document.querySelector('.pagination .tui-last');
+    
+    if (firstBtn) {
+      firstBtn.style.display = currentPage <= 2 ? 'none' : 'flex';
+      firstBtn.textContent = '1';
+    }
+    
+    if (lastBtn) {
+      lastBtn.style.display = currentPage >= totalPages - 1 ? 'none' : 'flex';
+      lastBtn.textContent = totalPages;
+    }
+
+    // Оновлюємо іконки next кнопок
+    const nextBtns = document.querySelectorAll('.pagination .tui-next use');
+    nextBtns.forEach(use => {
+      use.setAttribute('href', '/images/sprite.svg#icon-arrow-forward');
+    });
+
+    showLoader();
+    const data = await getPetsList({
+      category: currentCategory,
+      page: currentPage,
+    });
+
+    currentPets = data.animals;
+    totalItems = data.totalItems;
+    visibleCount = 0;
+    petsListCards.innerHTML = '';
+    renderNextBatch();
+    hideLoader();
+  });
+}
