@@ -193,7 +193,7 @@
 }
 
 .showmore-btn {
-  width: 335px;
+  width: 100%;
   margin: 0 auto;
   margin-top: 8px;
   border: 1px solid var(--mariner-dark);
