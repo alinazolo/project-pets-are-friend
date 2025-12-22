@@ -313,11 +313,16 @@ function initPagination(totalItemsCount) {
     const lastBtn = document.querySelector('.pagination .tui-last');
     const nextBtns = document.querySelectorAll('.pagination .tui-next use');
     
-    if (firstBtn) {
-      firstBtn.style.display = 'none'; // Ховаємо при ініціалізації
-    }
-    if (lastBtn) {
-      lastBtn.textContent = paginationTotalPages;
+    if (paginationTotalPages <= 3) {
+      if (firstBtn) firstBtn.style.display = 'none';
+      if (lastBtn) lastBtn.style.display = 'none';
+    } else {
+      if (firstBtn) {
+        firstBtn.style.display = 'none'; // Ховаємо при ініціалізації
+      }
+      if (lastBtn) {
+        lastBtn.textContent = paginationTotalPages;
+      }
     }
     // Змінюємо іконки next кнопок на forward
     nextBtns.forEach(use => {
@@ -329,18 +334,23 @@ function initPagination(totalItemsCount) {
     const currentPage = event.page;
     const totalPages = Math.ceil(totalItems / API_LIMIT);
 
-    // Ховаємо first на 1-2 сторінках, last на останніх двох
+    // Ховаємо first і last якщо загальна кількість сторінок <= 3
     const firstBtn = document.querySelector('.pagination .tui-first');
     const lastBtn = document.querySelector('.pagination .tui-last');
     
-    if (firstBtn) {
-      firstBtn.style.display = currentPage <= 2 ? 'none' : 'flex';
-      firstBtn.textContent = '1';
-    }
-    
-    if (lastBtn) {
-      lastBtn.style.display = currentPage >= totalPages - 1 ? 'none' : 'flex';
-      lastBtn.textContent = totalPages;
+    if (totalPages <= 3) {
+      if (firstBtn) firstBtn.style.display = 'none';
+      if (lastBtn) lastBtn.style.display = 'none';
+    } else {
+      if (firstBtn) {
+        firstBtn.style.display = currentPage <= 2 ? 'none' : 'flex';
+        firstBtn.textContent = '1';
+      }
+      
+      if (lastBtn) {
+        lastBtn.style.display = currentPage >= totalPages - 1 ? 'none' : 'flex';
+        lastBtn.textContent = totalPages;
+      }
     }
 
     // Оновлюємо іконки next кнопок
