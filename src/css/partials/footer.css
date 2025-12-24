@@ -82,17 +82,18 @@
     transition: visibility 1s ease, opacity 1s ease;
   }
   a.footer-nav-link {
+    text-decoration: none;
     color: var(--neutral-darkest);
     position: relative;
   }
   a.footer-nav-link::after {
     content: '';
     position: absolute;
-    bottom: 0; /* Позиция подчеркивания */
+    bottom: -25%;
     left: 50%;
     width: 0;
-    height: 2px; /* Толщина подчеркивания */
-    background-color: var(--neutral-darkest); /* Цвет подчеркивания */
+    height: 2px;
+    background-color: var(--neutral-darkest);
     transition: all 0.3s ease;
   }
 
