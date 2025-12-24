@@ -23,7 +23,7 @@ let totalItems = 0;
 
 const API_LIMIT = getRenderLimit();
 
-// ================= Pagination_STATE ================= 
+// ================= Pagination_STATE =================
 let paginationCurrentPage = 1;
 let paginationTotalPages = 0;
 let pagination = null;
@@ -272,14 +272,14 @@ function hideShowBtn() {
 
 // ================= Pagination_RENDER =================
 
-function renderPagination() { 
+function renderPagination() {
   if (!pagination) return;
   pagination.reset(totalItems);
 }
 
 // ================= Pagination_INIT =================
 
-function initPagination(totalItemsCount) { 
+function initPagination(totalItemsCount) {
   if (window.innerWidth < 768) return; // Pagination_з планшета
 
   paginationTotalPages = Math.ceil(totalItemsCount / API_LIMIT);
@@ -295,13 +295,17 @@ function initPagination(totalItemsCount) {
     centerAlign: true,
     template: {
       page: '<button class="pagination-btn pagination-page">{{page}}</button>',
-      currentPage: '<button class="pagination-btn pagination-page active">{{page}}</button>',
-      
-      moveButton: '<button class="pagination-btn pagination-arrow tui-{{type}}"><svg class="pagination-arrow-icon" width="24" height="24" viewBox="0 0 24 24"><use href="./sprite.svg#icon-arrow-back"></use></svg></button>',
-      disabledMoveButton: '<button class="pagination-btn pagination-arrow tui-is-disabled tui-{{type}}"><svg class="pagination-arrow-icon" width="24" height="24" viewBox="0 0 24 24"><use href="./sprite.svg#icon-arrow-back"></use></svg></button>',
-      
+      currentPage:
+        '<button class="pagination-btn pagination-page active">{{page}}</button>',
+
+      moveButton:
+        '<button class="pagination-btn pagination-arrow tui-{{type}}"><svg class="pagination-arrow-icon" width="24" height="24" viewBox="0 0 24 24"><use href="./sprite.svg#icon-arrow-back"></use></svg></button>',
+      disabledMoveButton:
+        '<button class="pagination-btn pagination-arrow tui-is-disabled tui-{{type}}"><svg class="pagination-arrow-icon" width="24" height="24" viewBox="0 0 24 24"><use href="./sprite.svg#icon-arrow-back"></use></svg></button>',
+
       firstPage: '<button class="pagination-btn pagination-page">1</button>',
-      lastPage: '<button class="pagination-btn pagination-page">{{totalPages}}</button>',
+      lastPage:
+        '<button class="pagination-btn pagination-page">{{totalPages}}</button>',
     },
   };
 
@@ -312,7 +316,12 @@ function initPagination(totalItemsCount) {
     const firstBtn = document.querySelector('.pagination .tui-first');
     const lastBtn = document.querySelector('.pagination .tui-last');
     const nextBtns = document.querySelectorAll('.pagination .tui-next use');
-    
+    const lastDots = document.querySelector('.tui-next-is-ellip');
+
+    if (paginationTotalPages <= 4) {
+      lastDots && (lastDots.style.display = 'none');
+    }
+
     if (paginationTotalPages <= 3) {
       if (firstBtn) firstBtn.style.display = 'none';
       if (lastBtn) lastBtn.style.display = 'none';
@@ -330,14 +339,14 @@ function initPagination(totalItemsCount) {
     });
   }, 0);
 
-  pagination.on('afterMove', async (event) => {
+  pagination.on('afterMove', async event => {
     const currentPage = event.page;
     const totalPages = Math.ceil(totalItems / API_LIMIT);
 
     // Ховаємо first і last якщо загальна кількість сторінок <= 3
     const firstBtn = document.querySelector('.pagination .tui-first');
     const lastBtn = document.querySelector('.pagination .tui-last');
-    
+
     if (totalPages <= 3) {
       if (firstBtn) firstBtn.style.display = 'none';
       if (lastBtn) lastBtn.style.display = 'none';
@@ -346,12 +355,23 @@ function initPagination(totalItemsCount) {
         firstBtn.style.display = currentPage <= 2 ? 'none' : 'flex';
         firstBtn.textContent = '1';
       }
-      
+
       if (lastBtn) {
         lastBtn.style.display = currentPage >= totalPages - 1 ? 'none' : 'flex';
         lastBtn.textContent = totalPages;
       }
     }
+    //Ховаємо крапки, якщо кнопки другої або передостанньої сторінок відображені
+    const firstDots = document.querySelector('.tui-prev-is-ellip');
+    const lastDots = document.querySelector('.tui-next-is-ellip');
+
+    currentPage <= 3
+      ? firstDots && (firstDots.style.display = 'none')
+      : firstDots && (firstDots.style.display = 'flex');
+
+    lastBtn.textContent - currentPage < 3
+      ? lastDots && (lastDots.style.display = 'none')
+      : lastDots && (lastDots.style.display = 'flex');
 
     // Оновлюємо іконки next кнопок
     const nextBtns = document.querySelectorAll('.pagination .tui-next use');

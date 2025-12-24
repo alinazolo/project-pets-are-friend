@@ -8,20 +8,20 @@ const refs = {
 
 let lastFocusedNode = null;
 const baseModal = {
-  modalNode: refs.modalContainer,
+  modalBackdrop: refs.modalContainer,
   modalContent: refs.modalContent,
   closeBtn: refs.closeModalBtn,
-
+  mouseDownOnBackdrop: false,
   getFocusableNodes() {
-    return this.modalNode.querySelectorAll('a, button, input, textarea');
+    return this.modalBackdrop.querySelectorAll('a, button, input, textarea');
   },
   openModal(contentObj) {
     lastFocusedNode = document.activeElement;
     this.modalContent.innerHTML = contentObj.getMarkup();
     contentObj.listnerHandler && contentObj.listnerHandler();
-    this.modalNode.classList.remove('is-hidden');
+    this.modalBackdrop.classList.remove('is-hidden');
     requestAnimationFrame(() => {
-      this.modalNode.classList.add('is-open');
+      this.modalBackdrop.classList.add('is-open');
     });
     document.body.classList.add('modal-open');
     const focusable = this.getFocusableNodes();
@@ -35,17 +35,23 @@ const baseModal = {
     }
     targetNode?.focus();
     this.closeBtn.addEventListener('click', this.closeModal.bind(baseModal));
-    this.modalNode.addEventListener('click', e => {
-      e.target === this.modalNode && this.closeModal();
+    this.modalBackdrop.addEventListener('mousedown', e => {
+      this.mouseDownOnBackdrop = e.target === this.modalBackdrop;
+    });
+    this.modalBackdrop.addEventListener('mouseup', e => {
+      this.mouseDownOnBackdrop &&
+        e.target === this.modalBackdrop &&
+        this.closeModal();
+      this.mouseDownOnBackdrop = false;
     });
     document.addEventListener('keydown', e => {
       this.disableNotModalActions(e);
     });
   },
   closeModal() {
-    this.modalNode.classList.remove('is-open');
+    this.modalBackdrop.classList.remove('is-open');
     setTimeout(() => {
-      this.modalNode.classList.add('is-hidden');
+      this.modalBackdrop.classList.add('is-hidden');
     }, 250);
     document.body.classList.remove('modal-open');
     if (refs.main.getAttribute('aria-hidden' === false)) {
@@ -53,10 +59,13 @@ const baseModal = {
     }
   },
   disableNotModalActions(e) {
-    if (e.key === 'Escape' && this.modalNode.classList.contains('is-open')) {
+    if (
+      e.key === 'Escape' &&
+      this.modalBackdrop.classList.contains('is-open')
+    ) {
       this.closeModal();
     }
-    if (e.key === 'Tab' && this.modalNode.classList.contains('is-open')) {
+    if (e.key === 'Tab' && this.modalBackdrop.classList.contains('is-open')) {
       const focusable = this.getFocusableNodes();
       const firstNode = focusable[0];
       const lastNode = focusable[focusable.length - 1];
