@@ -234,15 +234,15 @@
   padding: 12px;
   width: 48px;
   height: 48px;
-  background: #EEE9E3;
-  border: 1px solid #C3B49D;
+  background: #eee9e3;
+  border: 1px solid #c3b49d;
   border-radius: 8px;
   cursor: pointer;
 }
 
 .pagination .tui-prev:hover,
 .pagination .tui-next:hover {
-  border-color: #02060A;
+  border-color: #02060a;
 }
 
 .pagination .tui-first,
@@ -256,14 +256,14 @@
   border: none;
   border-radius: 8px;
   font-size: 16px;
-  color: #02060A;
+  color: #02060a;
   background: transparent;
   cursor: pointer;
 }
 
 .pagination .tui-first:hover,
 .pagination .tui-last:hover {
-  background: #B3B4B5;
+  background: #b3b4b5;
 }
 
 .pagination .tui-next {
@@ -280,29 +280,29 @@
   border: none;
   border-radius: 8px;
   font-size: 16px;
-  color: #02060A;
+  color: #02060a;
   background: transparent;
   cursor: pointer;
 }
 
 .pagination-page:hover {
-  background: #B3B4B5;
+  background: #b3b4b5;
 }
 
 .pagination .tui-prev:hover,
 .pagination .tui-next:hover,
 .pagination-arrow:hover {
-  border-color: #02060A;
+  border-color: #02060a;
 }
 
 .pagination-page.active {
   background: var(--color-mariner-lighter);
-  border: 1px solid #B3B4B5;
+  border: 1px solid #b3b4b5;
   padding: 11px 23px;
 }
 
 .pagination-page.active:hover {
-  border-color: #02060A;
+  border-color: #02060a;
 }
 
 .pagination .tui-prev,
@@ -314,21 +314,26 @@
   padding: 12px;
   width: 48px;
   height: 48px;
-  background: #EEE9E3;
-  border: 1px solid #C3B49D;
+  background: #eee9e3;
+  border: 1px solid #c3b49d;
   border-radius: 8px;
   cursor: pointer;
 }
 
+.tui-page-btn:hover {
+  color: var(--neutral);
+  text-decoration: none;
+}
+
 .pagination .tui-next use,
 .pagination .tui-next.tui-is-disabled use {
-  href: "./images/sprite.svg#icon-arrow-forward";
+  href: './images/sprite.svg#icon-arrow-forward';
 }
 
 .pagination-arrow-icon {
   width: 24px !important;
   height: 24px !important;
-  fill: #02060A;
+  fill: #02060a;
 }
 
 .tui-is-disabled,
@@ -342,7 +347,7 @@
   height: 27px;
   font-size: 18px;
   font-weight: 500;
-  color: #02060A;
+  color: #02060a;
   display: flex;
   align-items: center;
   justify-content: center;
