@@ -45,7 +45,7 @@ node -v
 npm -v
 
 2️⃣ Clone the Repository
-git clone https://github.com/OleksiiMarushchak/project-pets-are-friend.git
+git clone https://github.com/alinazolo/project-pets-are-friend.git
 cd project-pets-are-friend
 
 3️⃣ Install Dependencies
