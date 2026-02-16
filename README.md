@@ -1,59 +1,75 @@
-# ХАТИНКА ЛАПОК
+# Pets are friend
 
-Проект являє собою веб-додаток притулку для домашніх тврин з особливстями, які були покинуті господарями, або знайдені на вулиці, з вадами і травмами і отримали прихисток у
-цьому притулку. За допомогою веб-додатку притулок "Хатинка Лапок" намагається
-знайти для своїх підлеглих добрих, дбайливих господарів, які готові прихистити
-тваринок у своїх домівках, любити їх і дарувати їм щастя. У проекті використані наступні технології:
+This project is a web application for an animal shelter that cares for pets with special needs who were abandoned by their owners or found on the streets with injuries or disabilities and given refuge in this shelter.
 
-## Технології
-- JavaScript
-- HTML/CSS
-- Git/GitHub
-- Vite
-## використовувані бібліотеки
-- axios
-- css-star-rating 
-- izitoast
-- sweetalert2
-- accordion-js
-- swiper
-- tui-pagination
+Through the “Paws Hut” web application, the shelter aims to find kind and caring owners who are ready to adopt these animals into their homes, love them, and give them a happy life.
 
-## інструкція з запуску
+The project uses the following technologies:
 
-1️⃣ Вимоги \
-Node.js версії 16+\
-npm або yarn
+Technologies
 
-Перевірка:\
-```node -v\```
-```npm -v```
+JavaScript
 
-2️⃣ Клонування репозиторію\
-```git clone https://github.com/OleksiiMarushchak/project-pets-are-friend.git\``` \
-```cd project-pets-are-friend```
+HTML/CSS
 
-3️⃣ Встановлення залежностей\
-```npm install```
+Git/GitHub
 
-4️⃣ Запуск у режимі розробки\
-```npm run dev```
+Vite
+
+Libraries Used
+
+axios
+
+css-star-rating
+
+izitoast
+
+sweetalert2
+
+accordion-js
+
+swiper
+
+tui-pagination
+
+Setup Instructions
+1️⃣ Requirements
+
+Node.js version 16+
+
+npm or yarn
+
+Check your versions:
+
+node -v
+npm -v
+
+2️⃣ Clone the Repository
+git clone https://github.com/OleksiiMarushchak/project-pets-are-friend.git
+cd project-pets-are-friend
+
+3️⃣ Install Dependencies
+npm install
+
+4️⃣ Run in Development Mode
+npm run dev
 
 
-Після запуску відкрий у браузері:\
+After запуск, open in your browser:
 http://localhost:5173
 
-5️⃣ Збірка проєкту (production)\
-```npm run build```
+5️⃣ Build for Production
+npm run build
 
 
-Зібрані файли будуть у папці:\
-dist/
+The production files will be generated in the:
+dist/ folder
 
-6️⃣ Перегляд production-збірки локально\
-```npm run preview```
+6️⃣ Preview Production Build Locally
+npm run preview
 
-📌 Додатково\
-Усі вихідні файли знаходяться в папці src/\
-Точка входу: src/main.js\
-HTML-файл: index.html
+
+📌 Additional Information
+All source files are located in the src/ folder.
+Entry point: src/main.js
+HTML file: index.html
